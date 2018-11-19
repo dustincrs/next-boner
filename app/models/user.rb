@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   	include Clearance::User
 
+  	# Enumerations
   	enum role: [:normal, :moderator, :superadmin]
 
 	# Associations
@@ -8,6 +9,7 @@ class User < ApplicationRecord
 
 	has_many :projects
 	has_many :responses
+	has_many :reviews
 
 	# Validations
 	ATTRIBUTES = User.attribute_names
