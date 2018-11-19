@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   	include Clearance::User
 
+  	enum role: [:normal, :moderator, :superadmin]
+
 	# Associations
 	has_many :authentications, dependent: :destroy
 
