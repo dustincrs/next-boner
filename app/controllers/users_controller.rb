@@ -10,6 +10,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    # current_user.id = user.id
+    @projects = Project.all
   end
 
   # GET /users/new
