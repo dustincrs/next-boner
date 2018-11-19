@@ -20,4 +20,10 @@ Rails.application.routes.draw do
   # Google OAuth
   get "/auth/:provider/callback" => "sessions#create_from_omniauth"
   
+  # Facebook OAuth
+  Rails.application.routes.draw do
+    get 'auth/facebook/callback', to: "sessions#create"
+    get 'auth/failure', to: redirect('/')
+  end
+
 end

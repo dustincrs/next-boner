@@ -49,6 +49,11 @@ class User < ApplicationRecord
 		return x.token unless x.nil?
 	end
 
+	def facebook_token
+		x = self.authentications.find_by(provider: 'facebook')
+		return x.token unless x.nil?
+	end
+
 	# Private
 	private
 	def age_over_18
