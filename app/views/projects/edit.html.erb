@@ -2,12 +2,12 @@
 
 <%# <%= render 'form', project: @project %> 
 
-<%= link_to 'Show', @project %> |
+<%= link_to 'Show', @project %> 
 <%= link_to 'Back', projects_path %>
 
 
 
-<%= form_with(model: @project, local: true) do |form| %>
+<%= bootstrap_form_with(model: @project, local: true) do |form| %>
  
   <% if @project.errors.any? %>
     <div id="error_explanation">
@@ -23,37 +23,32 @@
     </div>
   <% end %>
  
-    <p>
-    <%= form.label :title, class:"listingtext" %><br>
-    <%= form.text_field :title %>
-  </p>
+ <div class = "col-6">
+    <%= form.text_field :title, label_class: "listingtext" %>
+</div>
  
-  <p>
-    <%= form.label :category, class:"listingtext" %><br>
-    <%= form.text_area :category %>
-  </p>
+ <div class = "col-6">
+    <%= form.text_area :category, label_class: "listingtext" %>
+</div>
 
-   <p>
-    <%= form.label :estimated_time, class:"listingtext" %><br>
-    <%= form.text_area :estimated_time %>
-  </p>
+ <div class = "col-6">
+    <%= form.text_area :estimated_time, label_class: "listingtext" %>
+</div>
 
-   <p>
-    <%= form.label :max_people, class:"listingtext" %><br>
-    <%= form.text_area :max_people %>
-   </p>
+ <div class = "col-6">
+    <%= form.text_area :max_people, label_class: "listingtext" %>
+</div>
 
-   <p>
-    <%= form.label :location, class:"listingtext" %><br>
-    <%= form.text_area :location %>
-   </p>
+ <div class = "col-6">
+    <%= form.text_area :location, label_class: "listingtext" %>
+</div>
 
-  <p>
+<div class = "col-6">
     <%= form.file_field :images, multiple: true, class:"listingtext" %><br>
-  </p>
+</div>
  
   <p>
-    <%= form.submit %>
+    <%= form.submit "Update Project" %>
   </p>
  
 <% end %>
