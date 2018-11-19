@@ -1,7 +1,9 @@
 class User < ApplicationRecord
-  include Clearance::User
+  	include Clearance::User
 
 	# Associations
+	has_many :authentications, dependent: :destroy
+
 	has_many :projects
 	has_many :responses
 
@@ -19,6 +21,32 @@ class User < ApplicationRecord
 	# Functions
 	def full_name
 		return "#{first_name} #{last_name}"
+	end
+
+
+	# Omniauth
+	def self.create_with_auth_and_hash(authentication, auth_hash)
+		first_name = auth_hash["info"]["name"].split(" ").first
+	    last_name = auth_hash["info"]["name"].split(" ").last
+	    # TAKE ME OUT LATER
+	    dob = 69.years.ago.to_date
+	    phone_no = "1234567890"
+
+		user = self.create!(
+		 first_name: first_name,
+		 last_name: last_name,
+		 date_of_birth: dob,
+		 email: auth_hash["info"]["email"],
+		 phone_number: phone_no,
+		 password: SecureRandom.hex(10)
+		)
+		user.authentications << authentication
+		return user
+	end
+
+	def google_token
+		x = self.authentications.find_by(provider: 'google_oauth2')
+		return x.token unless x.nil?
 	end
 
 	# Private
