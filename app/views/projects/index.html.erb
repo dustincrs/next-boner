@@ -10,11 +10,24 @@
   </thead>
 
   <tbody>
-    <% @projects.each do |project| %>
+
+
+    <%@projects.each do |p|%>
+        <h3> <%= p.title %> </h3>
+
+            
+        <p> Category: <%= p.category %> </p>
+        <p> Estimated Time: <%= p.estimated_time %> </p>
+        <p>Max People: <%= p.max_people %> </p>
+        <p>location: <%= p.location %> </p>
+        <p>latitude: <%= p.latitude %> </p>
+        <p>longitude: <%= p.longitude %> </p>
+        <p>Poster: <%= p.user.first_name %> </p>
       <tr>
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%# <td><%= link_to 'Show', project %></td> %>
+        <%# <td><%= link_to 'Edit', edit_project_path(project) %></td> %>
+        <td><%= link_to 'Edit', edit_project_path(p) %> </td>
+        <%# <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td> %>
       </tr>
     <% end %>
   </tbody>
