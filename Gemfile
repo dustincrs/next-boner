@@ -39,6 +39,12 @@ gem 'clearance'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
+gem "bootstrap_form", ">= 4.0.0"
+gem 'bootstrap', '~> 4.1.3'
+gem 'jquery-rails'
+gem 'jquery-ui-rails', '5.0.5'
+
+
 
 
 # Reduces boot times through caching; required in config/boot.rb
