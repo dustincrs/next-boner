@@ -10,6 +10,8 @@ class User < ApplicationRecord
 	has_many :projects
 	has_many :responses
 	has_many :reviews
+	has_many :awards
+	has_many :badges, through: :awards
 
 	# Validations
 	ATTRIBUTES = User.attribute_names
