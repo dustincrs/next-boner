@@ -40,6 +40,9 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 gem 'carrierwave', '~> 1.0'
+gem 'rmagick'
+gem "mini_magick"
+gem 'ImageMagick'
 
 
 # Reduces boot times through caching; required in config/boot.rb
