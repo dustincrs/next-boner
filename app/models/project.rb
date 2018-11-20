@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
 	# Enumerations
-	enum :status [:empty, :has_vacancies, :almost_full, :full]
+	enum status: [:empty, :has_vacancies, :almost_full, :full]
 
 	# Associations
 	belongs_to :user
