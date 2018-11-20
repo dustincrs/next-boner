@@ -10,8 +10,14 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    # current_user.id = user.id
-    @projects = Project.all
+    # Below is just testing adding of badges. It will be moved in the future
+    Badge.all.each do |badge|
+      if(eval(badge.rules))
+        unless badge.users.include?(@user)
+          badge.users << @user
+        end
+      end
+    end
   end
 
   # GET /users/new
@@ -72,6 +78,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :date_of_birth, :phone_number, :email, :password)
+      params.require(:user).permit(:first_name, :last_name, :date_of_birth, :phone_number, :email, :password, :avatar)
     end
 end

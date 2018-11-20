@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-  	include Clearance::User
+  include Clearance::User
+	  attr_accessor :avatar
+	  mount_uploader :avatar, AvatarUploader
 
   	# Enumerations
   	enum role: [:normal, :moderator, :superadmin]
@@ -10,6 +12,8 @@ class User < ApplicationRecord
 	has_many :projects
 	has_many :responses
 	has_many :reviews
+	has_many :awards
+	has_many :badges, through: :awards
 
 	# Validations
 	ATTRIBUTES = User.attribute_names
@@ -23,10 +27,10 @@ class User < ApplicationRecord
 	validates :email, uniqueness: true
 
 	# Functions
+	# Return full name
 	def full_name
 		return "#{first_name} #{last_name}"
 	end
-
 
 	# Google OmniAuth
 	def self.create_with_auth_and_hash(authentication, auth_hash)

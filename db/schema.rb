@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_19_074510) do
+ActiveRecord::Schema.define(version: 2018_11_20_050546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,22 @@ ActiveRecord::Schema.define(version: 2018_11_19_074510) do
     t.index ["user_id"], name: "index_authentications_on_user_id"
   end
 
+  create_table "awards", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "badge_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "badges", force: :cascade do |t|
+    t.string "rules"
+    t.string "icon"
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "title"
     t.string "category"
@@ -37,6 +53,8 @@ ActiveRecord::Schema.define(version: 2018_11_19_074510) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.boolean "is_complete", default: true
+    t.integer "status", default: 0
   end
 
   create_table "responses", force: :cascade do |t|
@@ -44,6 +62,7 @@ ActiveRecord::Schema.define(version: 2018_11_19_074510) do
     t.integer "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_approved", default: false
   end
 
   create_table "reviews", force: :cascade do |t|
