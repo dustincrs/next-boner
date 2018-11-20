@@ -39,6 +39,7 @@ gem 'clearance'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
+gem 'carrierwave', '~> 1.0'
 
 
 # Reduces boot times through caching; required in config/boot.rb
