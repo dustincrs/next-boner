@@ -4,7 +4,7 @@ Page for <%=@user.full_name%>.
 <% end %>
 
 
-<% if signed_in? -%>>
+<% if signed_in? %>
   <%=@user.full_name%>
   <%=image_tag current_user.avatar_url.to_s, class:"roundpicture" %>
 <% end %>
