@@ -17,6 +17,10 @@
     <%end%>
 <%end%>
 
+<%=@project.images.each do |image|%>
+	<%=image_tag image.url%>
+<%end%>
+
 <%if current_user.id != @project.user_id %>
     <%=link_to "Volunteer!", class: 'btn btn-primary' %>
 <%end%>
