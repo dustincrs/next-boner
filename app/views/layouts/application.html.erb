@@ -29,11 +29,27 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <li class="nav-item mr-3">
-              <%= link_to 'Sign Up', "#", data: {toggle: "modal", target: "#exampleModal"} , class:"nav-link" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Login', "#", data: {toggle: "modal", target: "#exampleModal1"} , class:"nav-link" %>
+            <% if signed_out? %>
+              <li class="nav-item mr-3">
+                <%= link_to 'Sign Up', "#", data: {toggle: "modal", target: "#exampleModal"} , class:"nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Login', "#", data: {toggle: "modal", target: "#exampleModal1"} , class:"nav-link" %>
+              <% end %>
+              <% if signed_in? %>
+                <li class="nav-item dropdown mr-5">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Volunteering
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <%= link_to 'Ask for Help' , new_project_path , class:"dropdown-item" %>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <%=image_tag current_user.avatar_url.to_s, class:"navpicture" %>
+                </li>
+                <%= link_to 'Logout' , sign_out_path , class:'nav-link' , :method => :delete %>
+              <% end %>
             </li>
           </li>
         </ul>
@@ -82,30 +98,28 @@
           <!-- <div class="col-sm-9 col-md-7 col-lg-5 mx-auto"> -->
           <div class="card-body">
             <!-- <div class="card card-signin my-5"> -->
-            <form class="form-signin">
-              <%= bootstrap_form_for :session, url:session_path do |form| %>
-                <div class="text-field">
-                  <div class="form-label-group">
-                    <%= form.text_field :email, type: 'email' ,label: "Email", label_class: "labels"  , class: "form-control" ,placeholder:"Email address" , autofocus:true %>
-                  </div>
+            <%= bootstrap_form_for :session, url:session_path , :html => {:class => 'form-signin' }  do |form| %>
+              <div class="text-field">
+                <div class="form-label-group">
+                  <%= form.text_field :email, type: 'email' ,label: "Email", label_class: "labels"  , class: "form-control" ,placeholder:"Email address" , autofocus:true %>
                 </div>
-                <div class="password-field">
-                  <div class="form-label-group">
-                    <%= form.password_field :password  , label:"Password" , label_class: "labels", id:"inputPassword" , type:"Password" , class:"form-control" , placeholder: "Password" , autofocus:true%>
-                  </div>
+              </div>
+              <div class="password-field">
+                <div class="form-label-group">
+                  <%= form.password_field :password  , label:"Password" , label_class: "labels", id:"inputPassword" , type:"Password" , class:"form-control" , placeholder: "Password" , autofocus:true%>
                 </div>
-                <div class="submit-field">
-                  <%= form.submit 'Login' , class: "btn btn-lg btn-primary btn-block text-uppercase mb-3"%>
-                </div>
-                <div class="other-links">
-                  <% if Clearance.configuration.allow_sign_up? %>
-                  <% end %>
-                </div>
-                <hr class="hr-text" data-content="OR">
-                <%= link_to 'Continue with google' , '/auth/google_oauth2' ,class:"fab fa-google btn btn-lg btn-google btn-block text-uppercase" , type:"submit" %>
-                <!--  <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i>Continue with Google</button> --><%= link_to 'Continue with facebook' , '/auth/facebook' ,class:"fab fa-facebook-f mr-2 btn btn-lg btn-facebook btn-block text-uppercase" , type:"submit" %>
-                <!--             <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i>Continue with Facebook</button> -->
-              </form>
+              </div>
+              <div class="submit-field">
+                <%= form.submit 'Login' , class: "btn btn-lg btn-primary btn-block text-uppercase mb-3"%>
+              </div>
+              <div class="other-links">
+                <% if Clearance.configuration.allow_sign_up? %>
+                <% end %>
+              </div>
+              <hr class="hr-text" data-content="OR">
+              <%= link_to 'Continue with google' , '/auth/google_oauth2' ,class:"fab fa-google btn btn-lg btn-google btn-block text-uppercase mb-3" %>
+              <!--  <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i>Continue with Google</button> --><%= link_to 'Continue with facebook' , '/auth/facebook' ,class:"fab fa-facebook-f mr-2 btn btn-lg btn-facebook btn-block text-uppercase"  , method: "get" %>
+              <!--             <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i>Continue with Facebook</button> -->
             </div>
           </div>
           <!--      </div>
