@@ -1,0 +1,17 @@
+from dustin: the project partial should eventually show less stuff (detail will be on the #show)
+<h3> <%= link_to project.title, project_path(project.id) %> </h3>
+<p> Category: <%= project.category %> </p>
+<p> Estimated Time: <%= project.estimated_time %> </p>
+<p>Max People: <%= project.max_people %> </p>
+<p>location: <%= project.location %> </p>
+<p>latitude: <%= project.latitude %> </p>
+<p>longitude: <%= project.longitude %> </p>
+<p>Poster: <%= project.user.first_name %> </p>
+<%if signed_in?%>
+	<%if current_user.id == project.user_id %>
+		<%= link_to 'Edit', edit_project_path(project) %> 
+		<%= link_to 'Delete', project_path(project),
+						method: :delete,
+						data: {confirm: 'Sure?'}%>
+	<%end%>
+<%end%>
