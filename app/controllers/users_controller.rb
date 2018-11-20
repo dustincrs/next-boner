@@ -12,6 +12,14 @@ class UsersController < ApplicationController
   def show
     # current_user.id = user.id
     @projects = Project.all
+
+    Badge.all.each do |badge|
+      if(eval(badge.rules))
+        unless badge.users.include?(@user)
+          badge.users << @user
+        end
+      end
+    end
   end
 
   # GET /users/new
