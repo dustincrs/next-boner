@@ -1,4 +1,8 @@
 Page for <%=@user.full_name%>.
+<%if current_user == @user %>
+	<%= link_to "Edit", edit_user_path(@user) %>
+<% end %>
+
 
 <% if signed_in? -%>>
   <%=@user.full_name%>
@@ -14,34 +18,9 @@ LOOK AT THAT BADGE BOY:
 <% end %>
 <hr/>
 
-<%if current_user == @user %>
-	<%= link_to "Edit", edit_user_path(@user) %>
 
-<% end %>
-               
-<%if @projects%>
-    <%@projects.each do |p|%>
-        <h3> <%= p.title %> </h3>
-        <p> Category: <%= p.category %> </p>
-        <p> Estimated Time: <%= p.estimated_time %> </p>
-        <p>Max People: <%= p.max_people %> </p>
-        <p>location: <%= p.location %> </p>
-        <p>latitude: <%= p.latitude %> </p>
-        <p>longitude: <%= p.longitude %> </p>
-        <p>Poster: <%= p.user.first_name %> </p>
-		<%if signed_in?%>
-			<%if current_user.id != p.user_id %>
-				<%=link_to "Volunteer!", class: 'btn btn-primary' %>
-			<%end%>
-			<%if current_user.id == p.user_id %>
-				<%= link_to 'Edit', edit_project_path(p) %> 
-				<%= link_to 'Delete', project_path(p),
-								method: :delete,
-								data: {confirm: 'Sure?'}%>
-			<%end%>
-		<%end%>
-    <%end%>
-<%end%>
+<%= render partial: 'projects/project', collection: @user.projects %>
 
-<%= link_to 'Post a Project', projects_path %>
-<%= link_to 'Back', projects_path %>
+
+should this link be in nav? just a thought:	
+<%= link_to 'Post a Project', new_project_path %>

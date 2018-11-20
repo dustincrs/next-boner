@@ -10,9 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    # current_user.id = user.id
-    @projects = Project.all
-
+    # Below is just testing adding of badges. It will be moved in the future
     Badge.all.each do |badge|
       if(eval(badge.rules))
         unless badge.users.include?(@user)
