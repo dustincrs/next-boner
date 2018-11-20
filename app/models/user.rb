@@ -29,7 +29,6 @@ class User < ApplicationRecord
 		return "#{first_name} #{last_name}"
 	end
 
-
 	# Google OmniAuth
 	def self.create_with_auth_and_hash(authentication, auth_hash)
 		first_name = auth_hash["info"]["name"].split(" ").first
