@@ -1,18 +1,15 @@
 <%= link_to 'Back', projects_path %>
-
-
-
-    <%@projects.each do |p|%>
-        <h3> <%= p.title %> </h3>
-        <p> Category: <%= p.category %> </p>
-        <p> Estimated Time: <%= p.estimated_time %> </p>
-        <p>Max People: <%= p.max_people %> </p>
-        <p>location: <%= p.location %> </p>
-        <p>latitude: <%= p.latitude %> </p>
-        <p>longitude: <%= p.longitude %> </p>
-        <p>Poster: <%= p.user.first_name %> </p>
-            <%= link_to 'Edit', edit_project_path(p) %> 
-            <%= link_to 'Delete', project_path(p),
+<%@projects.each do |p|%>
+  <h3> <%= p.title %> </h3>
+  <p> Category: <%= p.category %> </p>
+  <p> Estimated Time: <%= p.estimated_time %> </p>
+  <p>Max People: <%= p.max_people %> </p>
+  <p>location: <%= p.location %> </p>
+  <p>latitude: <%= p.latitude %> </p>
+  <p>longitude: <%= p.longitude %> </p>
+  <p>Poster: <%= p.user.first_name %> </p>
+  <%= link_to 'Edit', edit_project_path(p) %>
+  <%= link_to 'Delete', project_path(p),
                             method: :delete,
                             data: {confirm: 'Sure?'}%>
-    <%end%>
+<%end%>
