@@ -1,5 +1,10 @@
 Page for <%=@user.full_name%>.
 
+<% if signed_in? -%>>
+  <%=@user.full_name%>
+  <%=image_tag current_user.avatar_url.to_s, class:"roundpicture" %>
+<% end %>
+
 <hr />
 This section is for testing badges. Remove me later
 LOOK AT THAT BADGE BOY:

@@ -11,8 +11,17 @@
         <p>latitude: <%= p.latitude %> </p>
         <p>longitude: <%= p.longitude %> </p>
         <p>Poster: <%= p.user.first_name %> </p>
+
+        <% if p.images.present? %>
+            <%p.images.each_with_index do |pic, i| %>
+                <%=image_tag pic.url%>
+            <%end%>
+        <%end %>
+
+
             <%= link_to 'Edit', edit_project_path(p) %> 
             <%= link_to 'Delete', project_path(p),
                             method: :delete,
                             data: {confirm: 'Sure?'}%>
     <%end%>
+

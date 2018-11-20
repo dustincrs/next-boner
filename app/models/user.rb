@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-  	include Clearance::User
+  include Clearance::User
+	  attr_accessor :avatar
+	  mount_uploader :avatar, AvatarUploader
 
   	# Enumerations
   	enum role: [:normal, :moderator, :superadmin]
