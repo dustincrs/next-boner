@@ -3,6 +3,10 @@ Page for <%=@user.full_name%>.
 <hr />
 This section is for testing badges. Remove me later
 LOOK AT THAT BADGE BOY:
+<br/>
+<%@user.badges.each do |badge| %>
+	<%=badge.icon.html_safe%>
+<% end %>
 <hr/>
 
 <%if current_user == @user %>

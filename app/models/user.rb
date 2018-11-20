@@ -25,6 +25,7 @@ class User < ApplicationRecord
 	validates :email, uniqueness: true
 
 	# Functions
+	# Return full name
 	def full_name
 		return "#{first_name} #{last_name}"
 	end
