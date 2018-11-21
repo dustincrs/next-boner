@@ -1,0 +1,18 @@
+<div class="row mb-2">
+	<div class="col"><%=response.user.full_name%></div>
+
+	<% if(response.is_approved == false) %>
+		<div class="col-1">
+			<%= link_to "<i class=\"fas fa-check\" style=\"color: green\"></i>".html_safe, response_path(response.id), method: :put %>
+		</div>
+	<% end %>
+
+	<div class="col-1">
+		<%= link_to "<i class=\"fas fa-times\" style=\"color: red\"></i>".html_safe, response_path(response.id), method: :patch %>
+	</div>
+
+	<div class="col-1">
+		<%= link_to "<i class=\"fas fa-comment-alt\" style=\"color: blue\"></i>".html_safe%>
+	</div>
+
+</div>
