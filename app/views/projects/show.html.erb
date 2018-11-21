@@ -12,10 +12,21 @@
 <%end%>
 <%if signed_in?%>
   <%if current_user.id == @project.user_id %>
+    <%# <%=link_to "Talk to Volunteers!", class: 'btn btn-info' %> 
     <%= link_to 'Edit', edit_project_path(@project) %>
     <%= link_to 'Delete', project_path(@project),
                         method: :delete,
                         data: {confirm: 'Sure?'}%>
+    <h1> Pending Volunteers: </h1>
+    <p> bob </p> <button type="button" class="btn btn-success">Accept</button> <button type="button" class="btn btn-danger">Decline</button> <button type="button" class="btn btn-warning">Message</button>
+    <p> dustin </p> <button type="button" class="btn btn-success">Accept</button> <button type="button" class="btn btn-danger">Decline</button> <button type="button" class="btn btn-warning">Message</button>
+    <p> ezzy </p> <button type="button" class="btn btn-success">Accept</button> <button type="button" class="btn btn-danger">Decline</button> <button type="button" class="btn btn-warning">Message</button>
+
+    <h1> Approved Volunteers: </h1>
+    <p> yo </p> <button type="button" class="btn btn-danger">Remove</button> <button type="button" class="btn btn-warning">Message</button>
+    <p> er whey </p> <button type="button" class="btn btn-danger">Remove</button> <button type="button" class="btn btn-warning">Message</button>
+    <p> todd </p>
+    <button type="button" class="btn btn-info">Talk to Volunteers!</button>
   <%end%>
 <%end%>
 <!-- <%# <%=@project.images.each do |image|%> %> -->
