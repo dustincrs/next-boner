@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @tasks = current_user.responses.where(is_approved: true)
+    @tasks = @user.responses.where(is_approved: true)
     # Below is just testing adding of badges. It will be moved in the future
     Badge.all.each do |badge|
       if(eval(badge.rules))

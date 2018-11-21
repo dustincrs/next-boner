@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
+  before_action :require_login, only: [:edit, :update, :destroy, :new, :create]
+  before_action :disallow_moderator, only: [:create, :new]
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-
   # GET /projects
   # GET /projects.json
   def index

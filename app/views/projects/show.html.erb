@@ -10,8 +10,9 @@
 <%@project.images.each do |i|%>
   <%= image_tag i.url(:thumb).to_s %>
 <%end%>
+
 <%if signed_in?%>
-  <%if current_user.id == @project.user_id %>
+  <%if current_user.id == @project.user_id || current_user.moderator? || current_user.superadmin?%>
     <%# <%=link_to "Talk to Volunteers!", class: 'btn btn-info' %> 
     <%= link_to 'Edit', edit_project_path(@project) %>
     <%= link_to 'Delete', project_path(@project),
@@ -22,9 +23,8 @@
 
     <h1> Approved Volunteers: </h1>
     <%= render partial: 'users/volunteer', collection: @approved, as: :response%>    
-  <%end%>
-<%end%>
 
-<%if current_user.id != @project.user_id %>
-	<%=link_to "Volunteer!", response_path(@project.id), class: 'btn btn-primary' %>
-<%end%>
+  <%else%>
+	 <%=link_to "Volunteer!", response_path(@project.id), class: 'btn btn-primary' %>
+  <%end%>
+<% end %>
