@@ -7,7 +7,7 @@
 <p>latitude: <%= @project.latitude %> </p>
 <p>longitude: <%= @project.longitude %> </p>
 <p>Poster: <%= @project.user.first_name %> </p>
-<%=@project.images.each do |i|%>
+<%@project.images.each do |i|%>
   <%= image_tag i.url(:thumb).to_s %>
 <%end%>
 <%if signed_in?%>
