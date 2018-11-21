@@ -1,50 +1,28 @@
 <%# <h1>New Project</h1> %>
-
-<%# <%= render 'form', project: @project %> 
-
-
+<%# <%= render 'form', project: @project %>
 <h1> Post a Project!</h1>
-
-
-
-<%= form_with scope: :project , url:projects_path, local: true do |form| %>
-  <p>
-    <%= form.label :title, class:"listingtext" %><br>
-    <%= form.text_field :title %>
-  </p>
- 
-  <p>
-    <%= form.label :category, class:"listingtext" %><br>
-    <%= form.text_area :category %>
-  </p>
-
-   <p>
-    <%= form.label :estimated_time, class:"listingtext" %><br>
-    <%= form.text_area :estimated_time %>
-  </p>
-
-   <p>
-    <%= form.label :max_people, class:"listingtext" %><br>
-    <%= form.text_area :max_people %>
-   </p>
-
-   <p>
-    <%= form.label :location, class:"listingtext" %><br>
-    <%= form.text_area :location %>
-   </p>
-
-  <p>
+<%= bootstrap_form_with scope: :project , url:projects_path, local: true do |form| %>
+  <div class = "col-6">
+    <%= form.text_field :title ,label_class: "listingtext" %>
+  </div>
+  <div class = "col-6">
+    <%= form.text_area :category,label_class: "listingtext" %>
+  </div>
+  <div class = "col-6">
+    <%= form.text_area :estimated_time,label_class: "listingtext" %>
+  </div>
+  <div class = "col-6">
+    <%= form.text_area :max_people,label_class: "listingtext" %>
+  </div>
+  <div class = "col-6">
+    <%= form.text_area :location,label_class: "listingtext" %>
+  </div>
+  <div class = "col-6">
     <%= form.file_field :images, multiple: true, class:"listingtext" %><br>
-  </p>
- 
-  <p>
-  
-    <%= form.submit %>
-  </p>
+  </div>
+  <div>
+    <%= form.submit "Submit Project" %>
+  </div>
 <% end %>
-
-
-
-
-
+<br/>
 <%= link_to 'Back', projects_path %>
