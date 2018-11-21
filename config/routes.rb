@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 	root :to  => 'welcome#index'
 	resources :projects
 	resources :users
+  resources :responses
   
   # Clearance
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
