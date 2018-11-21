@@ -1,5 +1,4 @@
 <h3>NOTE FROM DUSTIN: This currently uses the _project partial as a placeholder it should be changed</h3>
-
 <h3> <%=@project.title%> </h3>
 <p> Category: <%= @project.category %> </p>
 <p> Estimated Time: <%= @project.estimated_time %> </p>
@@ -8,19 +7,20 @@
 <p>latitude: <%= @project.latitude %> </p>
 <p>longitude: <%= @project.longitude %> </p>
 <p>Poster: <%= @project.user.first_name %> </p>
+<%@project.images.each do |i|%>
+  <%= image_tag i.url(:thumb).to_s %>
+<%end%>
 <%if signed_in?%>
-    <%if current_user.id == @project.user_id %>
-        <%= link_to 'Edit', edit_project_path(@project) %> 
-        <%= link_to 'Delete', project_path(@project),
+  <%if current_user.id == @project.user_id %>
+    <%= link_to 'Edit', edit_project_path(@project) %>
+    <%= link_to 'Delete', project_path(@project),
                         method: :delete,
                         data: {confirm: 'Sure?'}%>
-    <%end%>
+  <%end%>
 <%end%>
-
-<%=@project.images.each do |image|%>
-	<%=image_tag image.url%>
-<%end%>
-
+<!-- <%# <%=@project.images.each do |image|%> %> -->
+<!-- <%# <%=image_tag image.thumb.url.to_s%> %> -->
+<!-- <%# <%end %> %> -->
 <%if current_user.id != @project.user_id %>
-    <%=link_to "Volunteer!", class: 'btn btn-primary' %>
+  <%=link_to "Volunteer!", class: 'btn btn-primary' %>
 <%end%>

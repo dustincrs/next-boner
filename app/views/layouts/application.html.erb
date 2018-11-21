@@ -1,29 +1,145 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <%= javascript_include_tag 'application' %>
-  <%= csrf_meta_tag %>
-</head>
-<body>
-  <div id="header">
-    <% if signed_in? -%>
-      <%= button_to t(".sign_out"), sign_out_path, method: :delete %>
-      <%= link_to "Profile", user_path(current_user) %>
-    <% else -%>
-      <%= link_to t(".sign_in"), sign_in_path %>
-      <%= link_to "Sign in with Google", "/auth/google_oauth2" %>
-      <%= link_to "Sign in with Facebook", "/auth/facebook" %>
+  <head>
+    <%= csrf_meta_tag %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  </head>
+  <body>
+    <!--  <div id="header">
+    <#% if signed_in? -%>
+      <#%#= button_to t(".sign_out"), sign_out_path, method: :delete %>
+      <#%= link_to "Profile", user_path(current_user) %>
+    <#% else -%>
+      <#%= link_to t(".sign_in"), sign_in_path %>
+      <#%= link_to "Sign in with Google", "/auth/google_oauth2" %>
+      <#%= link_to "Sign in with Facebook", "/auth/facebook" %>
 
-    <% end -%>
+
+    <#% end %>
+  </div> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <!-- instead of home this is gonna be our logo -->
+      <%= link_to 'Home' ,root_url ,  class:"navbar-brand" %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <% if signed_out? %>
+              <li class="nav-item mr-3">
+                <%= link_to 'Sign Up', "#", data: {toggle: "modal", target: "#exampleModal"} , class:"nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Login', "#", data: {toggle: "modal", target: "#exampleModal1"} , class:"nav-link" %>
+              <% end %>
+              <% if signed_in? %>
+                <li class="nav-item dropdown mr-5">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Volunteering
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <%= link_to 'Ask for Help' , new_project_path , class:"dropdown-item" %>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <%=image_tag current_user.avatar_url.to_s, class:"navpicture" %>
+                </li>
+                <%= link_to 'Logout' , sign_out_path , class:'nav-link' , :method => :delete %>
+              <% end %>
+            </li>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- sign up modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+            <form class="form-signin">
+              <%= link_to 'Continue with google' , '/auth/google_oauth2' ,class:"fab fa-google btn btn-lg btn-google btn-block text-uppercase" , type:"submit" %>
+              <%= link_to 'Continue with facebook' , '/auth/facebook' ,class:"fab fa-facebook-f mr-2 btn btn-lg btn-facebook btn-block text-uppercase" , type:"submit" %>
+            </div>
+          </form>
+          <hr class="hr-text" data-content="OR">
+          <p>Create a "our app name" account     <%=link_to 'Create Account' , sign_up_path %></p>
+        </div>
+        <div class="modal-footer">
+          <p class = "mr-auto">Already have a "our app name" app?    <%=link_to 'Login' , sign_in_path %> </p>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div id="flash">
-    <% flash.each do |key, value| -%>
-      <div id="flash_<%= key %>"><%=h value %></div>
-    <% end %>
+  <!-- login modal -->
+  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- <div class="container"> -->
+          <!-- <div class="row"> -->
+          <!-- <div class="col-sm-9 col-md-7 col-lg-5 mx-auto"> -->
+          <div class="card-body">
+            <!-- <div class="card card-signin my-5"> -->
+            <%= bootstrap_form_for :session, url:session_path , :html => {:class => 'form-signin' }  do |form| %>
+              <div class="text-field">
+                <div class="form-label-group">
+                  <%= form.text_field :email, type: 'email' ,label: "Email", label_class: "labels"  , class: "form-control" ,placeholder:"Email address" , autofocus:true %>
+                </div>
+              </div>
+              <div class="password-field">
+                <div class="form-label-group">
+                  <%= form.password_field :password  , label:"Password" , label_class: "labels", id:"inputPassword" , type:"Password" , class:"form-control" , placeholder: "Password" , autofocus:true%>
+                </div>
+              </div>
+              <div class="submit-field">
+                <%= form.submit 'Login' , class: "btn btn-lg btn-primary btn-block text-uppercase mb-3"%>
+              </div>
+              <div class="other-links">
+                <% if Clearance.configuration.allow_sign_up? %>
+                <% end %>
+              </div>
+              <hr class="hr-text" data-content="OR">
+              <%= link_to 'Continue with google' , '/auth/google_oauth2' ,class:"fab fa-google btn btn-lg btn-google btn-block text-uppercase mb-3" %>
+              <!--  <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i>Continue with Google</button> --><%= link_to 'Continue with facebook' , '/auth/facebook' ,class:"fab fa-facebook-f mr-2 btn btn-lg btn-facebook btn-block text-uppercase"  , method: "get" %>
+              <!--             <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i>Continue with Facebook</button> -->
+            </div>
+          </div>
+          <!--      </div>
+     </div>
+  </div> -->
+          <!-- </div> -->
+          <div class="modal-footer">
+            <p class = "mr-auto">Dont have an account? <%= link_to t(".sign_up"), sign_up_path %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="flash">
+      <% flash.each do |key, value| -%>
+        <div id="flash_<%= key %>"><%=h value %></div>
+      <% end %>
+    </div>
+  <%end %>
+  <div class = "container">
+    <%= yield %>
   </div>
-
-  <%= yield %>
 </body>
 </html>
