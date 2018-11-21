@@ -1,18 +1,19 @@
 class ProjectsController < ApplicationController
+  before_action :require_login, only: [:edit, :update, :destroy, :new, :create]
+  before_action :disallow_moderator, only: [:create, :new]
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-
   # GET /projects
   # GET /projects.json
   def index
     # @user = current_user
     @projects = Project.all
-
-
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @pending = @project.responses.where(is_approved: false, is_hidden: false)
+    @approved = @project.responses.where(is_approved: true, is_hidden: false)
   end
 
   # GET /projects/new
