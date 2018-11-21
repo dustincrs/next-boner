@@ -1,4 +1,4 @@
-  <%=image_tag current_user.avatar_url.to_s, class:"roundpicture" %>
+ <%=image_tag @user.avatar_url.to_s, class:"roundpicture" %>
 Page for <%=@user.full_name%>
 <%if current_user == @user %>
   <%= link_to "Edit", edit_user_path(@user) %>
@@ -18,5 +18,3 @@ LOOK AT THAT BADGE BOY:
 <%= render partial: 'projects/project', collection: @user.projects %>
 should this link be in nav? just a thought:	
 <%= link_to 'Post a Project', new_project_path %>
-
-<%# <%= current_user.responses.projects.title%> %>

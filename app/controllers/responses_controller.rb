@@ -1,5 +1,6 @@
 class ResponsesController < ApplicationController
 	before_action :require_login
+	before_action :disallow_moderator, only: [:create, :new, :show]
 	before_action :get_associated_project, only: [:show]
 	before_action :get_response, only: [:update]
 
