@@ -7,9 +7,23 @@
 <p>latitude: <%= @project.latitude %> </p>
 <p>longitude: <%= @project.longitude %> </p>
 <p>Poster: <%= @project.user.first_name %> </p>
-<%=@project.images.each do |i|%>
-  <%= image_tag i.url(:thumb).to_s %>
-<%end%>
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="width: 400px; margin: 0 auto">
+  <div class="carousel-inner">
+    <% @project.images.each_with_index do |img , index| %>
+      <div class="carousel-item <%= index == 0 ? 'active' : nil %>">
+        <%=image_tag img.url(:thumb).to_s, :class => "image" %>
+      </div>
+    <% end %>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
 <%if signed_in?%>
   <%if current_user.id == @project.user_id %>
     <%= link_to 'Edit', edit_project_path(@project) %>
