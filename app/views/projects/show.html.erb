@@ -42,13 +42,15 @@
                         method: :delete,
                         data: {confirm: 'Sure?'}%>
 
-    <h1> Pending Volunteers: </h1>
-    <%= render partial: 'users/volunteer', collection: @pending, as: :response%>
+      <h1> Pending Volunteers: </h1>
+      <%= render partial: 'users/volunteer', collection: @pending, as: :response%>
     <%end%>
 
     <h1> Approved Volunteers: </h1>
     <%= render partial: 'users/volunteer', collection: @approved, as: :response%>
   <%else%>
-    <%=link_to "Volunteer!", response_path(@project.id), class: 'btn btn-primary' %>
+    <%if @responses.find_by(user_id: current_user.id).nil?%>
+      <%=link_to "Volunteer!", response_path(@project.id), class: 'btn btn-primary' %>
+    <%end%>
   <%end%>
 <% end %>

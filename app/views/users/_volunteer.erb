@@ -8,9 +8,11 @@
 	<% end %>
 
 	<% if(response.project.is_complete == true) %>
-		<div class="col-1">
-			<%= link_to "<i class=\"fas fa-pen-fancy\" style=\"color: yellow\"></i>".html_safe, new_review_path(response.project.id, response.user.id), method: :get %>
-		</div>
+		<% if (Review.find_by(user_id: response.user.id, project_id: response.project.id).nil?) %>
+			<div class="col-1">
+				<%= link_to "<i class=\"fas fa-pen-fancy\" style=\"color: yellow\"></i>".html_safe, new_review_path(response.project.id, response.user.id), method: :get %>
+			</div>			
+		<%end%>
 	<% else %>
 		<div class="col-1">
 			<%= link_to "<i class=\"fas fa-times\" style=\"color: red\"></i>".html_safe, response_path(response.id), method: :patch %>
