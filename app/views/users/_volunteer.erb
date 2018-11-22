@@ -1,5 +1,5 @@
 <div class="row mb-2">
-	<div class="col"><%=response.user.full_name%></div>
+	<div class="col"><%= link_to response.user.full_name, user_path(response.user.id)%></div>
 
 	<% if(response.is_approved == false) %>
 		<div class="col-1">
@@ -9,7 +9,7 @@
 
 	<% if(response.project.is_complete == true) %>
 		<div class="col-1">
-			<%= link_to "<i class=\"fas fa-pen-fancy\" style=\"color: yellow\"></i>".html_safe, review_new_path, method: :get %>
+			<%= link_to "<i class=\"fas fa-pen-fancy\" style=\"color: yellow\"></i>".html_safe, new_review_path(response.project.id, response.user.id), method: :get %>
 		</div>
 	<% else %>
 		<div class="col-1">

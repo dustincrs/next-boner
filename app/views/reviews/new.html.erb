@@ -1,2 +1,5 @@
-<h1>Review#new</h1>
-<p>Find me in app/views/review/new.html.erb</p>
+Note: we can just put all new review forms into modals/popovers on the project#show page?
+
+<hr/>
+<h2>New review for <%="#{@user.full_name} regarding #{@project.title}"%></h2>
+<%= render partial: 'form' %>

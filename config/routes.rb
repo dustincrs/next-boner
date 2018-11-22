@@ -7,8 +7,8 @@ Rails.application.routes.draw do
 
   patch 'projects/:id/complete' => 'projects#complete', as: 'complete_project'
 
-  get 'reviews/new'
-  get 'reviews/create'
+  get 'reviews/:project_id/:user_id/new' => 'reviews#new', as: 'new_review'
+  post 'reviews/create' => 'reviews#create', as: 'reviews'
   
   # Clearance
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
@@ -29,8 +29,6 @@ Rails.application.routes.draw do
   
   # Facebook OAuth
   Rails.application.routes.draw do
-  get 'review/new'
-  get 'review/create'
     get 'auth/facebook/callback', to: "sessions#create"
     get 'auth/failure', to: redirect('/')
   end
