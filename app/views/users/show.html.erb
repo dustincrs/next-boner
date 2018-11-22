@@ -1,13 +1,13 @@
 <div class="page-container page-container-responsive space-top-4 space-8">
   <div class = "row">
     <div class = "col-lg-4">
-      <%=image_tag current_user.avatar_url.to_s, class:"profilepicture mb-5" %>
+      <%=image_tag @user.avatar_url.to_s, class:"profilepicture mb-5" %>
       <div class="card" style="width: 225px;">
         <div class="card-header">
           Projects info
         </div>
         <ul class="list-group list-group-flush">
-          <% current_user.projects.each do |project| %>
+          <% @user.projects.each do |project| %>
             <li class="list-group-item">
               <%=link_to project.title , project_path(project.id) , class:"links"  %>
             <%end %>
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class = "col-lg-8">
-      <h1>Hey, I'm <%= current_user.first_name %>! </h1>
+      <h1>Hey, I'm <%= @user.first_name %>! </h1>
       <%if current_user == @user %>
         <%= link_to "Edit Profile", edit_user_path(@user)  , class:"links"%>
       <% end %>
