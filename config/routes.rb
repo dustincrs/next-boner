@@ -1,8 +1,14 @@
-Rails.application.routes.draw do
-	root :to  => 'welcome#index'
-	resources :projects
-	resources :users
+Rails.application.routes.draw do  
+  root :to  => 'welcome#index'
+
+  resources :projects
+  resources :users
   resources :responses
+
+  patch 'projects/:id/complete' => 'projects#complete', as: 'complete_project'
+
+  get 'reviews/new'
+  get 'reviews/create'
   
   # Clearance
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
@@ -23,6 +29,8 @@ Rails.application.routes.draw do
   
   # Facebook OAuth
   Rails.application.routes.draw do
+  get 'review/new'
+  get 'review/create'
     get 'auth/facebook/callback', to: "sessions#create"
     get 'auth/failure', to: redirect('/')
   end
