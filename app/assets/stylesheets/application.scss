@@ -205,8 +205,20 @@
 .links{
 color:#008489;
 }
+
 body {
 	font-family:Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
 	color:#484848;
 }
 
+#flash_error  {
+  background-color: red;
+}
+
+#flash_notice  {
+  background-color: yellow;
+}
+
+#flash_success  {
+  background-color: green;
+}
