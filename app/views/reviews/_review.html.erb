@@ -1,0 +1,8 @@
+<div class="my-3 p-1 border border-1">
+	<%=review.star_rating%><br />
+	<%="From: #{review.project.user.full_name} regarding #{review.project.title}."%><br />
+	<%="On: #{review.created_at}"%><br />
+	<b>Comments:</b><br />
+	<%=review.text.truncate(75)%> <br />
+	<%= link_to "See full review >>>", review_path(review.id) %>
+</div>

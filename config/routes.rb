@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   patch 'projects/:id/complete' => 'projects#complete', as: 'complete_project'
 
   get 'reviews/:project_id/:user_id/new' => 'reviews#new', as: 'new_review'
+  get 'reviews/:review_id' => 'reviews#show', as: 'review'
   post 'reviews/create' => 'reviews#create', as: 'reviews'
   
   # Clearance

@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @tasks = @user.responses.where(is_approved: true)
+    @reviews = @user.reviews.limit(5).order(created_at: :desc)
     # Below is just testing adding of badges. It will be moved in the future
     Badge.all.each do |badge|
       if(eval(badge.rules))
