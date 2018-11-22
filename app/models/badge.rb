@@ -22,6 +22,10 @@ class Badge < ApplicationRecord
         		unless badge.users.include?(user)
           			badge.users << user
         		end
+      		else
+      			if badge.users.include?(user)
+      				badge.users.delete(user)
+      			end
       		end
     	end
   	end
