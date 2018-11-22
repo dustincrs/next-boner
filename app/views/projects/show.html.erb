@@ -26,13 +26,17 @@
 </div>
 <%if signed_in?%>
   <%if current_user.id == @project.user_id || current_user.moderator? || current_user.superadmin?%>
-    <%# <%=link_to "Talk to Volunteers!", class: 'btn btn-info' %>
-    <%= link_to 'Edit', edit_project_path(@project) %>
-    <%= link_to 'Delete', project_path(@project),
+    <%if @project.is_complete == false%>
+      <%= link_to 'Mark as Complete', complete_project_path(@project.id), method: :patch%>
+      <%= link_to 'Edit', edit_project_path(@project) %>
+      <%= link_to 'Delete', project_path(@project),
                         method: :delete,
                         data: {confirm: 'Sure?'}%>
+
     <h1> Pending Volunteers: </h1>
     <%= render partial: 'users/volunteer', collection: @pending, as: :response%>
+    <%end%>
+
     <h1> Approved Volunteers: </h1>
     <%= render partial: 'users/volunteer', collection: @approved, as: :response%>
   <%else%>
