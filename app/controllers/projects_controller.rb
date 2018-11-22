@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :require_login, only: [:edit, :update, :destroy, :new, :create]
   before_action :disallow_moderator, only: [:create, :new]
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :complete]
   # GET /projects
   # GET /projects.json
   def index
@@ -65,6 +65,12 @@ class ProjectsController < ApplicationController
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # Marks the project as completed
+  def complete
+    @project.update(is_complete: true)
+    redirect_to project_path(@project.id)
   end
 
   private
