@@ -26,14 +26,12 @@
 <br/>
 <h1 style = "text-align: center;">Achievements</h1>
 <hr />
-Badges are gonna be center-aligned here looking fresh like Aziz.
+<%= render partial: 'badge', collection: @badges, as: :badge %>
 <br/>
-<%@user.badges.each do |badge| %>
-  <%=badge.icon.html_safe%>
-<% end %>
 
 <h1 style = "text-align: center;">Reviews</h1>
 <hr />
 Where should we put these reviews? in a box on the side somewhere? maybe our margins/padding is too large
 <br/>
+
 <%= render partial: 'reviews/review', collection: @reviews, as: :review %>

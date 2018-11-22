@@ -1,0 +1,11 @@
+<div class="text-center mx-2" style="display: inline-block; font-size: 25pt" data-toggle="tooltip" data-placement="top" title="<%=badge.name%>">
+	<div data-toggle="tooltip" data-placement="bottom" title="<%=badge.description%>">		
+		<%=badge.icon_html%>
+	</div>
+</div>
+
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
