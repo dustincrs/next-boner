@@ -12,14 +12,8 @@ class UsersController < ApplicationController
   def show
     @tasks = @user.responses.where(is_approved: true)
     @reviews = @user.reviews.limit(5).order(created_at: :desc)
-    # Below is just testing adding of badges. It will be moved in the future
-    Badge.all.each do |badge|
-      if(eval(badge.rules))
-        unless badge.users.include?(@user)
-          badge.users << @user
-        end
-      end
-    end
+    Badge.update_badges!(@user)
+    @badges = @user.badges
   end
 
   # GET /users/new
