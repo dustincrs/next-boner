@@ -33,6 +33,21 @@ class User < ApplicationRecord
     return "#{first_name} #{last_name}"
   end
 
+  # Returns average review ratings. This function is bad when DB is huge. 
+  # Consider custom Rake task and adding a column for the avg in the user table.
+  def average_rating
+    if(reviews.size <= 0)
+      return 0
+    else
+      return reviews.map { |r| r.rating }.sum/reviews.size
+    end
+  end
+
+  # Returns all users responses that were approved, and that are marked as complete
+  def successful_responses
+    return responses.select  {|r| r.is_approved == true }.select  {|r| r.project.is_complete == true}
+  end
+
   # Google OmniAuth
   def self.create_with_auth_and_hash(authentication, auth_hash)
     first_name = auth_hash["info"]["name"].split(" ").first
