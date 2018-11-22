@@ -19,7 +19,6 @@
   --input-padding-y: .75rem;
 }
 
-
 .card-signin {
   border: 0;
   border-radius: 1rem;
@@ -181,6 +180,14 @@
  height: 100px;
     width: 100px;
 }
+.profilepicture{
+  height:225px;
+  width:225px;
+   box-shadow:0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+          /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+
+
+}
 .navpicture {
     border-radius: 50%;
  height: 35px;
@@ -195,3 +202,11 @@
   /*height: 225px;*/
   max-height: 225px;
 }
+.links{
+color:#008489;
+}
+body {
+	font-family:Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	color:#484848;
+}
+
