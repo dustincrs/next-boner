@@ -16,6 +16,13 @@ class ReviewsController < ApplicationController
 	redirect_to project_path(new_review.project.id)
   end
 
+  def show
+    @review = Review.find_by_id(params[:review_id])
+    @project = @review.project
+    @volunteer = @review.user
+    @poster = @project.user
+  end
+
   private
   def review_params
   	params.require(:review).permit(:project_id, :user_id, :rating, :text)
