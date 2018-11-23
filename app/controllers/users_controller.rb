@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     @reviews = @user.reviews.limit(3).order(created_at: :desc)
     @projects = @user.projects.where(is_complete: false).limit(5).order(created_at: :desc)
     Badge.update_badges!(@user)
-    @badges = @user.badges
+    @badges = @user.badges.limit(4)
   end
 
   # GET /users/new

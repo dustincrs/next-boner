@@ -8,7 +8,7 @@
     <div class="col">
       <h1>Hey, I'm <%= @user.first_name %>! </h1>
       <h5><b><%=@user.blurb%></b></h5>
-      <h5><b><%="#{@user.projects.size}"%></b> total projects</h5>
+      <h5><b><%="#{@user.projects.size}"%></b> projects started</h5>
       <h5><b><%="#{@user.projects.where(is_complete: true).size}"%></b> projects completed</h5>
       <h5><b><%="#{@tasks.size}"%></b> volunteering gigs completed</h5>
       <%if current_user == @user %>

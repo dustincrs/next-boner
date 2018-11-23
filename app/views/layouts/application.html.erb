@@ -7,14 +7,15 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= action_cable_meta_tag %>
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
 
   </head>
+
   <body>
     <style>
       .coordinates {
@@ -31,6 +32,7 @@
           display: none;
       }
     </style>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <!-- instead of home this is gonna be our logo -->
       <a href="<%=root_url%>"><img src="/logo.png" alt="logo" class="navbar-brand" style="width: 25px"></a>
@@ -69,11 +71,13 @@
         </ul>
       </div>
     </nav>
+
     <div id="flash" class="text-center">
       <% flash.each do |key, value| -%>
         <div id="flash_<%= key %>"><%=h value%></div>
       <% end %>
     </div>
+
     <!-- sign up modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -112,11 +116,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <!-- <div class="container"> -->
-          <!-- <div class="row"> -->
-          <!-- <div class="col-sm-9 col-md-7 col-lg-5 mx-auto"> -->
           <div class="card-body">
-            <!-- <div class="card card-signin my-5"> -->
             <%= bootstrap_form_for :session, url:session_path , :html => {:class => 'form-signin' }  do |form| %>
               <div class="text-field">
                 <div class="form-label-group">
@@ -141,10 +141,6 @@
               <!--             <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i>Continue with Facebook</button> -->
             </div>
           </div>
-          <!--      </div>
-     </div>
-  </div> -->
-          <!-- </div> -->
           <div class="modal-footer">
             <p class = "mr-auto">Dont have an account? <%= link_to t(".sign_up"), sign_up_path %></p>
           </div>
@@ -163,10 +159,10 @@
 
   <!-- For activating tooltips -->
   <script>
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
   </script>
 
-</body>
+  </body>
 </html>

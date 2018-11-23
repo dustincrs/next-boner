@@ -61,6 +61,17 @@ namespace :badges do
 							"User has been part of #{threshold} completed projects.")
 		end
 
+		# Making badges for number of projects created & completed
+		project_thresholds = [5, 25, 75, 150]
+		threshold_keywords = ["Dispatcher", "Contractor", "Taskmaster", "Management"]
+		project_thresholds.each_with_index do |threshold, index|
+			create_badge(	"user.projects.where(is_complete: true).size >= #{threshold}",
+							"fas fa-bullhorn",
+							BADGE_TIERS[index],
+							"#{threshold_keywords[index]}",
+							"User has been part of #{threshold} completed projects.")
+		end
+
 		# And many more..
 	end
 end
