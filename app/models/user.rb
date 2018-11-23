@@ -34,7 +34,7 @@ class User < ApplicationRecord
     return "#{first_name} #{last_name}"
   end
 
-  # Returns average review ratings. This function is bad when DB is huge. 
+  # Returns average review ratings. This function is bad when DB is huge.
   # Consider custom Rake task and adding a column for the avg in the user table.
   def average_rating
     if(reviews.size <= 0)
@@ -62,8 +62,12 @@ class User < ApplicationRecord
       last_name: last_name,
       date_of_birth: dob,
       email: auth_hash["info"]["email"],
+      avatar: auth_hash["info"]["image"],
       phone_number: phone_no,
-      password: SecureRandom.hex(10)
+
+      password: SecureRandom.hex(10),
+
+
     )
     user.authentications << authentication
     return user

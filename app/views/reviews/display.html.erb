@@ -1,18 +1,15 @@
 <div class="row">
-	<div class="col text-center">
-		<%=image_tag @user.avatar_url.to_s, class:"profilepicture mb-5"%>		
-	</div>
+  <div class="col text-center">
+    <%=image_tag @user.avatar_url.to_s, class:"profilepicture mb-5"%>
+  </div>
 </div>
-
 <div class="row">
-	<div class="col text-center">
-		<h1>Reviews for <%=@user.full_name%></h1>
-		<h5><%=link_to "Back to Profile", user_path(@user.id), class: "btn btn-secondary"%></h5>
-	</div>
+  <div class="col text-center">
+    <h1>Reviews for <%=@user.full_name%></h1>
+    <h5><%=link_to "Back to Profile", user_path(@user.id), class: "btn btn-secondary"%></h5>
+  </div>
 </div>
-
 <hr />
-
 <div class="row">
-	<%= render partial: 'reviews/review_display', collection: @user.reviews.order(created_at: :desc), as: :review %>
+  <%= render partial: 'reviews/review_display', collection: @user.reviews.order(created_at: :desc), as: :review %>
 </div>
