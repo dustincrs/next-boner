@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :display_projects]
 
   # GET /users
   # GET /users.json
@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @tasks = @user.responses.where(is_approved: true)
-    @reviews = @user.reviews.limit(5).order(created_at: :desc)
+    @reviews = @user.reviews.limit(3).order(created_at: :desc)
+    @projects = @user.projects.where(is_complete: false).limit(5).order(created_at: :desc)
     Badge.update_badges!(@user)
     @badges = @user.badges
   end
@@ -64,6 +65,9 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def display_projects
   end
 
   private

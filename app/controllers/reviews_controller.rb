@@ -23,6 +23,10 @@ class ReviewsController < ApplicationController
     @poster = @project.user
   end
 
+  def display
+    @user = User.find_by_id(params[:user_id])
+  end
+
   private
   def review_params
   	params.require(:review).permit(:project_id, :user_id, :rating, :text)
