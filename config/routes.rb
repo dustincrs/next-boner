@@ -1,4 +1,6 @@
-Rails.application.routes.draw do  
+Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'  
+  get 'rooms/show'
   root :to  => 'welcome#index'
 
   resources :projects
@@ -30,6 +32,7 @@ Rails.application.routes.draw do
   
   # Facebook OAuth
   Rails.application.routes.draw do
+  get 'rooms/show'
     get 'auth/facebook/callback', to: "sessions#create"
     get 'auth/failure', to: redirect('/')
   end
