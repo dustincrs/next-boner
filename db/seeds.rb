@@ -71,7 +71,7 @@ report_seeding(seeded_users, users_to_seed, "users")
 total_projects = 0
 saved_projects = 0
 User.all.each do |user|
-	rand(11).times do
+	rand(15).times do
 		total_projects += 1
 		new_project = generate_project(user.id)
 		if(new_project.save)
@@ -86,7 +86,7 @@ report_seeding(saved_projects, total_projects, "projects")
 total_responses = 0
 saved_responses = 0
 Project.all.each do |project|
-	User.all.sample(rand(11)).each do |user|
+	User.all.sample(2 + rand(11)).each do |user|
 		total_responses += 1
 		new_response = generate_response(user.id, project.id)
 
