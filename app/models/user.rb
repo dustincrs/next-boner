@@ -49,6 +49,20 @@ class User < ApplicationRecord
     return responses.select  {|r| r.is_approved == true }.select  {|r| r.project.is_complete == true}
   end
 
+  def blurb
+    tagger = EngTagger.new
+    all_reviews_tagged = tagger.add_tags(reviews.map { |r| r.text }.join(" ").gsub(/\n/, " "))
+    all_adjectives = tagger.get_adjectives(all_reviews_tagged)
+
+    unless(all_adjectives.nil?)
+      adjectives = all_adjectives.keys.sample(3).join(", ")
+      blurb = "Previously described as #{adjectives}."
+      return blurb
+    end
+
+    return ""
+  end
+
   # Google OmniAuth
   def self.create_with_auth_and_hash(authentication, auth_hash)
     first_name = auth_hash["info"]["name"].split(" ").first

@@ -117,6 +117,7 @@ GEM
     crass (1.0.4)
     email_validator (1.6.0)
       activemodel
+    engtagger (0.2.1)
     erubi (1.7.1)
     execjs (2.7.0)
     faraday (0.15.3)
@@ -288,6 +289,7 @@ DEPENDENCIES
   chromedriver-helper
   clearance
   coffee-rails (~> 4.2)
+  engtagger
   figaro
   jbuilder (~> 2.5)
   jquery-rails
@@ -312,7 +314,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 RUBY VERSION
-   ruby 2.5.3p105
+   ruby 2.5.0p0
 
 BUNDLED WITH
    1.17.1
