@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
 
   # Enumerations
-  enum role: [:normal, :moderator, :superadmin]
+  enum role: [:normal, :moderator, :superadmin, :bot]
 
   # Associations
   has_many :authentications, dependent: :destroy

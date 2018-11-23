@@ -19,6 +19,7 @@ class Project < ApplicationRecord
 	 			sharing: 		'<i class="fas fa-praying-hands"></i>',
 	 			advice: 		'<i class="far fa-question-circle"></i>',
 	 			interpersonal_favours: '<i class="fas fa-heart"></i>',
+	 			scraped: 		'<i class="fas fa-robot"></i>',
 	 			}.map {|k, v| [k, v.html_safe]}.to_h
 
 	# Enumerations
