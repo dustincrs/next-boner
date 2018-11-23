@@ -1,34 +1,40 @@
+<h2 class="text-center">Make a new Project</h2>
 <%= bootstrap_form_with scope: :project , url:projects_path, local: true do |form| %>
   <div class="row">
     <div class = "col">
-      <%= form.text_field :title ,label_class: "listingtext" %>
+      <%= form.text_field :title , hide_label: true, prepend: "Project Title" %>
     </div>
   </div>
 
   <div class="row">
     <div class = "col">
-      <%= form.select :category, Project::CATEGORIES, {}, label_class: "listingtext" %>
+      <%= form.select :category, Project::CATEGORIES, hide_label: true %>
     </div>
   </div>
 
   <div class="row">
-    <div class = "col-6">
-      <%= form.text_field :estimated_time,label_class: "listingtext" %>
+    <div class = "col-4" data-toggle="tooltip" title="Estimated time for project completion (minutes)">
+      <%= form.text_field :estimated_time, hide_label: true, prepend: Project::SYMBOLS[:clock]%>
     </div>
-    <div class = "col-6">
-      <%= form.text_field :max_people,label_class: "listingtext" %>
+
+    <div class = "col-4" data-toggle="tooltip" title="Maximum number of people required (0 = no limit)">
+      <%= form.text_field :max_people, hide_label: true, prepend: Project::SYMBOLS[:person]%>
+    </div>
+  
+    <div class = "col-4" data-toggle="tooltip" title="Street Address">
+      <%= form.text_field :location, hide_label: true, prepend: Project::SYMBOLS[:map] %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= form.text_area :detail, hide_label: true, rows: 5, placeholder: "Add some detail regarding your project here..."%>
     </div>
   </div>
 
   <div class="row">
     <div class = "col">
-      <%= form.text_field :location,label_class: "listingtext" %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class = "col">
-      <%= form.file_field :images, multiple: true, class:"listingtext" %><br>
+      <%= form.file_field :images, multiple: true, hide_label: true, placeholder: "Upload images for your project!"%><br>
     </div>
   </div>
 
