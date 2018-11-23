@@ -46,6 +46,8 @@ gem 'jquery-ui-rails', '5.0.5'
 
 
 gem 'carrierwave', '~> 1.0'
+gem 'carrierwave-aws'
+gem 'aws-sdk-rails'
 gem 'rmagick'
 gem "mini_magick"
 # gem 'ImageMagick'
