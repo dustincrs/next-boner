@@ -56,7 +56,7 @@
                 <%= render partial: 'reviews/review', collection: @reviews, as: :review %>          
                 </ul>
 
-                <a href="" style="color: black">
+                <a href="<%=display_reviews_path(@user.id)%>" style="color: black">
                   <div class="card-footer">
                     See More >>
                   </div>
@@ -80,7 +80,7 @@
             <div class="col"></div>
 
             <div class="col text-right">
-              <a href="" style="color: black">
+              <a href="<%=display_projects_path(@user.id)%>" style="color: black">
                 See More >>
               </a>  
             </div>

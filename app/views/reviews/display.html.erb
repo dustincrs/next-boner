@@ -6,7 +6,7 @@
 
 <div class="row">
 	<div class="col text-center">
-		<h1><%=@user.full_name%>'s Badges</h1>
+		<h1>Reviews for <%=@user.full_name%></h1>
 		<h5><%=link_to "Back to Profile", user_path(@user.id), class: "btn btn-secondary"%></h5>
 	</div>
 </div>
@@ -14,5 +14,5 @@
 <hr />
 
 <div class="row">
-	<%= render partial: 'badges/badge', collection: @user.badges, as: :badge %>
+	<%= render partial: 'reviews/review_display', collection: @user.reviews.order(created_at: :desc), as: :review %>
 </div>
