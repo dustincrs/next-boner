@@ -46,7 +46,7 @@ class User < ApplicationRecord
 
   # Returns all users responses that were approved, and that are marked as complete
   def successful_responses
-    return responses.select  {|r| r.is_approved == true }.select  {|r| r.project.is_complete == true}
+    return responses.select {|r| r.project.is_complete == true}
   end
 
   def blurb
