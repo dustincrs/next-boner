@@ -1,0 +1,17 @@
+<h1>Chat room</h1>
+
+<div id = "msg" style = "display:none">
+  <%=current_user.id%>
+</div>
+
+<div id="messages">
+  <%= render @messages %>
+</div>
+
+<form>
+  <label>Say something:</label><br>
+  <input type="text" data-behavior="room_speaker">
+</form>
+
+ <div class="inner">
+</div>
