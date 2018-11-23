@@ -1,37 +1,66 @@
 <div class="page-container page-container-responsive space-top-4 space-8">
-  <div class = "row">
-    <div class = "col-lg-4">
-      <%=image_tag @user.avatar_url.to_s, class:"profilepicture mb-5" %>
-      <div class="card" style="width: 225px;">
-        <div class="card-header">
-          Projects info
-        </div>
-        <ul class="list-group list-group-flush">
-          <% @user.projects.each do |project| %>
-            <li class="list-group-item">
-              <%=link_to project.title , project_path(project.id) , class:"links"  %>
-            <%end %>
-          </li>
-        </ul>
-      </div>
+
+  <div class="row">
+    <div class="col-3">
+      <%=image_tag @user.avatar_url.to_s, class:"profilepicture mb-5"%>
     </div>
-    <div class = "col-lg-8">
+
+    <div class="col">
       <h1>Hey, I'm <%= @user.first_name %>! </h1>
       <%if current_user == @user %>
         <%= link_to "Edit Profile", edit_user_path(@user)  , class:"links"%>
       <% end %>
     </div>
   </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="col-3">
+
+      <div class="row mb-3">
+        <div class="col">
+          <div class="card text-center" style="width: 100%;">
+            <div class="card-header">
+            Badges
+            </div>
+
+            <ul class="list-group list-group-flush d-inline">
+            <%= render partial: 'badge', collection: @badges, as: :badge %>
+            </ul>
+          </div>    
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <div class="col">
+              <div class="card text-center" style="width: 100%;">
+                <div class="card-header">
+                Recent Reviews
+                </div>
+
+                <ul class="list-group list-group-flush d-inline">
+                <%= render partial: 'reviews/review', collection: @reviews, as: :review %>          
+                </ul>
+              </div>
+            </div>
+          </div>          
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          Projects
+        </div>
+        <ul class="list-group list-group-flush d-inline">
+          <%= render partial: 'projects/project_small', collection: @projects, as: :project %>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
-<br/>
-<h1 style = "text-align: center;">Achievements</h1>
-<hr />
-<%= render partial: 'badge', collection: @badges, as: :badge %>
-<br/>
-
-<h1 style = "text-align: center;">Reviews</h1>
-<hr />
-Where should we put these reviews? in a box on the side somewhere? maybe our margins/padding is too large
-<br/>
-
-<%= render partial: 'reviews/review', collection: @reviews, as: :review %>

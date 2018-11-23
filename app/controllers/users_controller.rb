@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   def show
     @tasks = @user.responses.where(is_approved: true)
     @reviews = @user.reviews.limit(5).order(created_at: :desc)
+    @projects = @user.projects.limit(5).order(created_at: :desc)
     Badge.update_badges!(@user)
     @badges = @user.badges
   end
