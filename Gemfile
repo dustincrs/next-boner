@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.3'
+ruby '2.5.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
@@ -50,7 +50,7 @@ gem 'carrierwave-aws'
 gem 'aws-sdk-rails'
 gem 'rmagick'
 gem "mini_magick"
-# gem 'ImageMagick'
+gem 'engtagger'
 
 
 # Reduces boot times through caching; required in config/boot.rb
