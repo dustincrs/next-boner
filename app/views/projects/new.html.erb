@@ -1,17 +1,20 @@
-<script type="text/javascript"></script>
-
-<h2 class="text-center">Make a new Project</h2>
+<h2 class="text-center mb-3">New Project</h2>
 <%= bootstrap_form_with scope: :project , url:projects_path, local: true do |form| %>
+  <% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+      <ul>
+        <% @project.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
 
   <div class="row">
     <div class = "col">
       <%= form.text_field :title , hide_label: true, prepend: "Project Title" %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class = "col">
-      <%= form.select :category, Project::CATEGORIES, hide_label: true %>
     </div>
   </div>
 
@@ -24,16 +27,9 @@
       <%= form.text_field :max_people, hide_label: true, prepend: Project::SYMBOLS[:person]%>
     </div>
   
-    <div class = "col-4" data-toggle="tooltip" title="Street Address">
-      <%= form.text_field :location, hide_label: true, prepend: Project::SYMBOLS[:map] %>
+    <div class = "col-4" data-toggle="tooltip" title="Project category">
+      <%= form.select :category, Project::CATEGORIES, hide_label: true, prepend: Project::SYMBOLS[:category] %>
     </div>
-  </div>
-
-  <div class = "col-6">
-    <%= form.text_field :longitude, id: :project_longitude, class:"listingtext" %><br>
-  </div>
-  <div class = "col-6">
-    <%= form.text_field :latitude, id: :project_latitude, class:"listingtext" %><br>
   </div>
 
   <div class="row">
@@ -42,13 +38,30 @@
     </div>
   </div>
 
+  <hr />
+
+  <div class = "col-6" style="display:none">
+    <%= form.text_field :longitude, id: :project_longitude, class:"listingtext" %><br>
+  </div>
+  <div class = "col-6" style="display:none">
+    <%= form.text_field :latitude, id: :project_latitude, class:"listingtext" %><br>
+  </div>
+
   <div class="row">
-    <div class = "col">
-      <%= form.file_field :images, multiple: true, hide_label: true, placeholder: "Upload images for your project!"%><br>
+    <div class = "col" data-toggle="tooltip" title="Street Address">
+      <%= form.text_field :location, hide_label: true, prepend: Project::SYMBOLS[:map] %>
     </div>
   </div>
 
   <div id='map' style="height:700px; width:100%"></div>
+
+  <hr />
+
+  <div class="row">
+    <div class = "col">
+      <%= form.file_field :images, multiple: true, hide_label: true, placeholder: "Upload images for your project! (optional)"%><br>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col"></div>
