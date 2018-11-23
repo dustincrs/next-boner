@@ -1,5 +1,14 @@
+<script type="text/javascript"></script>
+
 <h2 class="text-center">Make a new Project</h2>
 <%= bootstrap_form_with scope: :project , url:projects_path, local: true do |form| %>
+  <div class = "col-6">
+    <%= form.text_field :longitude, id: :project_longitude, class:"listingtext" %><br>
+  </div>
+  <div class = "col-6">
+    <%= form.text_field :latitude, id: :project_latitude, class:"listingtext" %><br>
+  </div>
+
   <div class="row">
     <div class = "col">
       <%= form.text_field :title , hide_label: true, prepend: "Project Title" %>
@@ -38,6 +47,8 @@
     </div>
   </div>
 
+  <div id='map'></div>
+
   <div class="row">
     <div class="col"></div>
 
@@ -52,3 +63,86 @@
   </div>
 
 <% end %>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoianVzdGluaGlld2NqIiwiYSI6ImNqb255bm5naTFiOGYzcG5vOXN3eWE5am4ifQ.DCwE-GkXgAVdexBZ0q_4mQ';
+    var coordinates = document.getElementById('coordinates');
+    var longitude = document.getElementById('project_longitude');
+    var latitude = document.getElementById('project_latitude');
+    console.log(document.getElementById('project_location'))
+    var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v9',
+    center: [101.686855, 3.139003],
+    zoom: 1
+    });
+    
+    //Marker descriptions
+    var marker = new mapboxgl.Marker({
+    draggable: true
+    })
+    //.setLngLat([101.686855, 3.139003])
+    //.addTo(map);
+    
+    // Add geolocate control to the map.
+    geolocate = new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    trackUserLocation: true
+    });
+    map.addControl(geolocate);
+     geolocate.on('geolocate', function(e){
+      var coord = e.coords;
+      console.log(coord);
+      marker.setLngLat([coord.longitude, coord.latitude]).addTo(map);
+      longitude.value = coord.longitude;
+      latitude.value= coord.latitude;
+    });
+    
+    // Add zoom and rotation controls to the map.
+    map.addControl(new mapboxgl.NavigationControl());
+    
+    //Add Search function by location
+    var geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      zoom: 17,
+      placeholder: "Enter search e.g. Glo",
+    });
+    
+    map.addControl(geocoder);
+     //attempt at making marker follow the geocoder,
+    //geocoder automatically updates coordinates form
+    geocoder.on('result', function(object){
+       console.log(object.result.geometry.coordinates);
+       var coord = object.result.geometry.coordinates;
+       marker.setLngLat([coord[0], coord[1]]).addTo(map);
+       longitude.value = coord[0];
+       latitude.value= coord[1];
+    });
+     //Function to allow dragging and to stop dragging marker
+    function onDragEnd() {
+    var lngLat = marker.getLngLat();
+    
+    //displaying coordinates
+    coordinates.style.display = 'float';
+    coordinates.innerHTML = 'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
+    
+    //after dragging updates hidden form coordinates
+    longitude.value = lngLat.lng;
+    latitude.value= lngLat.lat;
+    }
+    
+    map.on('click', placeMarker)
+    marker.on('dragend', onDragEnd);
+     //placing the marker
+    function placeMarker(lngLat) {
+        var marker = new mapboxgl.Marker({
+        position: lngLat,
+        map: map
+    })};
+    
+    map.event.addListener(map, 'click', function(event) {
+      placeMarker(event.lngLat, map);
+    });
+</script>
