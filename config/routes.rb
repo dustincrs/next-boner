@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get 'badges/:user_id' => 'badges#show', as: 'display_badge'
 
-  get 'reviews/:user_id' => 'reviews#display', as: 'display_reviews'
+  get 'reviews/display/:user_id' => 'reviews#display', as: 'display_reviews'
 
   get 'users/:id/projects' => 'users#display_projects', as: 'display_projects'
 

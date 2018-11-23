@@ -26,7 +26,7 @@
         <div class="col">
           <div class="card text-center" style="width: 100%;">
             <div class="card-header">
-              <b>Badges (<%=@badges.size%>)</b>
+              <b>Badges (<%=@user.badges.size%>)</b>
             </div>
 
             <ul class="list-group list-group-flush d-inline">
@@ -52,7 +52,7 @@
             <div class="col">
               <div class="card text-center" style="width: 100%;">
                 <div class="card-header">
-                  <b>Reviews (<%=@reviews.size%>)</b>
+                  <b>Reviews (<%=@user.reviews.size%>)</b>
                 </div>
 
                 <ul class="list-group list-group-flush d-inline">
@@ -79,7 +79,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col">
-              <b>Open Projects (<%=@projects.size%>)</b>
+              <b>Open Projects (<%=@user.projects.where(is_complete: false).size%>)</b>
             </div>
 
             <div class="col"></div>
@@ -87,7 +87,7 @@
             <%unless(@projects.size==0)%>
               <div class="col text-right">
                 <a href="<%=display_projects_path(@user.id)%>" style="color: black">
-                  See More >>
+                  See All Projects >>
                 </a>  
               </div>
             <%end%>
