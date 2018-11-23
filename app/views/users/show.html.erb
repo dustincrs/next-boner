@@ -7,6 +7,7 @@
 
     <div class="col">
       <h1>Hey, I'm <%= @user.first_name %>! </h1>
+      <h5><b><%=@user.blurb%></b></h5>
       <h5><b><%="#{@user.projects.size}"%></b> total projects</h5>
       <h5><b><%="#{@user.projects.where(is_complete: true).size}"%></b> projects completed</h5>
       <h5><b><%="#{@tasks.size}"%></b> volunteering gigs completed</h5>
@@ -25,18 +26,20 @@
         <div class="col">
           <div class="card text-center" style="width: 100%;">
             <div class="card-header">
-              <b>Badges (<%=@badges.size%>)</b>
+              <b>Badges (<%=@user.badges.size%>)</b>
             </div>
 
             <ul class="list-group list-group-flush d-inline">
             <%= render partial: 'badge', collection: @badges, as: :badge %>
             </ul>
 
-            <a href="<%=display_badge_path(@user.id)%>" style="color: black">
-              <div class="card-footer">
-                See More >>
-              </div>
-            </a>
+            <%unless(@badges.size==0)%>
+              <a href="<%=display_badge_path(@user.id)%>" style="color: black">
+                <div class="card-footer">
+                  See More >>
+                </div>
+              </a>
+            <%end%>
 
           </div>    
         </div>
@@ -49,18 +52,20 @@
             <div class="col">
               <div class="card text-center" style="width: 100%;">
                 <div class="card-header">
-                  <b>Reviews (<%=@reviews.size%>)</b>
+                  <b>Reviews (<%=@user.reviews.size%>)</b>
                 </div>
 
                 <ul class="list-group list-group-flush d-inline">
                 <%= render partial: 'reviews/review', collection: @reviews, as: :review %>          
                 </ul>
-
-                <a href="<%=display_reviews_path(@user.id)%>" style="color: black">
-                  <div class="card-footer">
-                    See More >>
-                  </div>
-                </a>
+  
+                <%unless(@reviews.size==0)%>                
+                  <a href="<%=display_reviews_path(@user.id)%>" style="color: black">
+                    <div class="card-footer">
+                      See More >>
+                    </div>
+                  </a>
+                <%end%>
 
               </div>
             </div>
@@ -74,16 +79,19 @@
         <div class="card-header">
           <div class="row">
             <div class="col">
-              <b>Open Projects (<%=@projects.size%>)</b>
+              <b>Open Projects (<%=@user.projects.where(is_complete: false).size%>)</b>
             </div>
 
             <div class="col"></div>
 
-            <div class="col text-right">
-              <a href="<%=display_projects_path(@user.id)%>" style="color: black">
-                See More >>
-              </a>  
-            </div>
+            <%unless(@projects.size==0)%>
+              <div class="col text-right">
+                <a href="<%=display_projects_path(@user.id)%>" style="color: black">
+                  See All Projects >>
+                </a>  
+              </div>
+            <%end%>
+
           </div>
           
         </div>

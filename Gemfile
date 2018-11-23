@@ -50,7 +50,7 @@ gem 'carrierwave-aws'
 gem 'aws-sdk-rails'
 gem 'rmagick'
 gem "mini_magick"
-# gem 'ImageMagick'
+gem 'engtagger'
 
 
 # Reduces boot times through caching; required in config/boot.rb
