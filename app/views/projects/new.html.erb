@@ -28,6 +28,7 @@
     <div class = "col-6">
       <%= form.text_field :latitude, id: :project_latitude, class:"listingtext" %><br>
     </div>
+    <div id="map" style='height: 700px; width:100%'>
     <div>
       <%= form.submit "Submit Project" %>
      </div>
@@ -96,10 +97,6 @@
       //Function to allow dragging and to stop dragging marker
       function onDragEnd() {
       var lngLat = marker.getLngLat();
-      
-      //displaying coordinates
-      coordinates.style.display = 'float';
-      coordinates.innerHTML = 'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
       
       //after dragging updates hidden form coordinates
       longitude.value = lngLat.lng;
