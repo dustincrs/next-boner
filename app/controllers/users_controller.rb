@@ -11,8 +11,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @tasks = @user.responses.where(is_approved: true)
-    @reviews = @user.reviews.limit(5).order(created_at: :desc)
-    @projects = @user.projects.limit(5).order(created_at: :desc)
+    @reviews = @user.reviews.limit(3).order(created_at: :desc)
+    @projects = @user.projects.where(is_complete: false).limit(5).order(created_at: :desc)
     Badge.update_badges!(@user)
     @badges = @user.badges
   end
