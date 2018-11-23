@@ -7,6 +7,9 @@
 
     <div class="col">
       <h1>Hey, I'm <%= @user.first_name %>! </h1>
+      <h5><b><%="#{@user.projects.size}"%></b> total projects</h5>
+      <h5><b><%="#{@user.projects.where(is_complete: true).size}"%></b> projects completed</h5>
+      <h5><b><%="#{@tasks.size}"%></b> volunteering gigs completed</h5>
       <%if current_user == @user %>
         <%= link_to "Edit Profile", edit_user_path(@user)  , class:"links"%>
       <% end %>
@@ -22,12 +25,19 @@
         <div class="col">
           <div class="card text-center" style="width: 100%;">
             <div class="card-header">
-            Badges
+              <b>Badges (<%=@badges.size%>)</b>
             </div>
 
             <ul class="list-group list-group-flush d-inline">
             <%= render partial: 'badge', collection: @badges, as: :badge %>
             </ul>
+
+            <a href="<%=display_badge_path(@user.id)%>" style="color: black">
+              <div class="card-footer">
+                See More >>
+              </div>
+            </a>
+
           </div>    
         </div>
       </div>
@@ -39,12 +49,19 @@
             <div class="col">
               <div class="card text-center" style="width: 100%;">
                 <div class="card-header">
-                Recent Reviews
+                  <b>Reviews (<%=@reviews.size%>)</b>
                 </div>
 
                 <ul class="list-group list-group-flush d-inline">
                 <%= render partial: 'reviews/review', collection: @reviews, as: :review %>          
                 </ul>
+
+                <a href="" style="color: black">
+                  <div class="card-footer">
+                    See More >>
+                  </div>
+                </a>
+
               </div>
             </div>
           </div>          
@@ -55,9 +72,22 @@
     <div class="col">
       <div class="card">
         <div class="card-header">
-          Projects
+          <div class="row">
+            <div class="col">
+              <b>Open Projects (<%=@projects.size%>)</b>
+            </div>
+
+            <div class="col"></div>
+
+            <div class="col text-right">
+              <a href="" style="color: black">
+                See More >>
+              </a>  
+            </div>
+          </div>
+          
         </div>
-        <ul class="list-group list-group-flush d-inline">
+        <ul class="list-group list-group-flush d-inline">        
           <%= render partial: 'projects/project_small', collection: @projects, as: :project %>
         </ul>
       </div>

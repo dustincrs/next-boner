@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :users
   resources :responses
 
+  get 'badges/:user_id' => 'badges#show', as: 'display_badge'
+
   patch 'projects/:id/complete' => 'projects#complete', as: 'complete_project'
 
   get 'reviews/:project_id/:user_id/new' => 'reviews#new', as: 'new_review'
