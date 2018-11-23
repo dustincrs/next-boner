@@ -730,7 +730,10 @@
     click        : undefined,
     half         : false,
     halfShow     : true,
-    hints        : ['bad', 'poor', 'regular', 'good', 'perfect'],
+    hints        : ['fucked up', 'shit', 'ok', 'good', 'fucking perfect'],
+    // pitch one
+    // hints        : ['bad', 'poor', 'regular', 'good', 'perfect'],
+
     iconRange    : undefined,
     mouseout     : undefined,
     mouseover    : undefined,
