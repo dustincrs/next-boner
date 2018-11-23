@@ -2,12 +2,6 @@
 
 <h2 class="text-center">Make a new Project</h2>
 <%= bootstrap_form_with scope: :project , url:projects_path, local: true do |form| %>
-  <div class = "col-6">
-    <%= form.text_field :longitude, id: :project_longitude, class:"listingtext" %><br>
-  </div>
-  <div class = "col-6">
-    <%= form.text_field :latitude, id: :project_latitude, class:"listingtext" %><br>
-  </div>
 
   <div class="row">
     <div class = "col">
@@ -35,6 +29,13 @@
     </div>
   </div>
 
+  <div class = "col-6">
+    <%= form.text_field :longitude, id: :project_longitude, class:"listingtext" %><br>
+  </div>
+  <div class = "col-6">
+    <%= form.text_field :latitude, id: :project_latitude, class:"listingtext" %><br>
+  </div>
+
   <div class="row">
     <div class="col">
       <%= form.text_area :detail, hide_label: true, rows: 5, placeholder: "Add some detail regarding your project here..."%>
@@ -47,7 +48,7 @@
     </div>
   </div>
 
-  <div id='map'></div>
+  <div id='map' style="height:700px; width:100%"></div>
 
   <div class="row">
     <div class="col"></div>
@@ -123,11 +124,7 @@
      //Function to allow dragging and to stop dragging marker
     function onDragEnd() {
     var lngLat = marker.getLngLat();
-    
-    //displaying coordinates
-    coordinates.style.display = 'float';
-    coordinates.innerHTML = 'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
-    
+       
     //after dragging updates hidden form coordinates
     longitude.value = lngLat.lng;
     latitude.value= lngLat.lat;
