@@ -33,11 +33,13 @@
             <%= render partial: 'badge', collection: @badges, as: :badge %>
             </ul>
 
-            <a href="<%=display_badge_path(@user.id)%>" style="color: black">
-              <div class="card-footer">
-                See More >>
-              </div>
-            </a>
+            <%unless(@badges.size==0)%>
+              <a href="<%=display_badge_path(@user.id)%>" style="color: black">
+                <div class="card-footer">
+                  See More >>
+                </div>
+              </a>
+            <%end%>
 
           </div>    
         </div>
@@ -56,12 +58,14 @@
                 <ul class="list-group list-group-flush d-inline">
                 <%= render partial: 'reviews/review', collection: @reviews, as: :review %>          
                 </ul>
-
-                <a href="<%=display_reviews_path(@user.id)%>" style="color: black">
-                  <div class="card-footer">
-                    See More >>
-                  </div>
-                </a>
+  
+                <%unless(@reviews.size==0)%>                
+                  <a href="<%=display_reviews_path(@user.id)%>" style="color: black">
+                    <div class="card-footer">
+                      See More >>
+                    </div>
+                  </a>
+                <%end%>
 
               </div>
             </div>
@@ -80,11 +84,14 @@
 
             <div class="col"></div>
 
-            <div class="col text-right">
-              <a href="<%=display_projects_path(@user.id)%>" style="color: black">
-                See More >>
-              </a>  
-            </div>
+            <%unless(@projects.size==0)%>
+              <div class="col text-right">
+                <a href="<%=display_projects_path(@user.id)%>" style="color: black">
+                  See More >>
+                </a>  
+              </div>
+            <%end%>
+
           </div>
           
         </div>
