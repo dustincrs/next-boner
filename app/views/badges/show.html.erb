@@ -1,0 +1,18 @@
+<div class="row">
+	<div class="col text-center">
+		<%=image_tag @user.avatar_url.to_s, class:"profilepicture mb-5"%>		
+	</div>
+</div>
+
+<div class="row">
+	<div class="col text-center">
+		<h1><%=@user.full_name%>'s Badges</h1>
+		<h5><%=link_to "Back to Profile", user_path(@user.id), class: "btn btn-secondary"%></h5>
+	</div>
+</div>
+
+<hr />
+
+<div class="row">
+	<%= render partial: 'badges/badge', collection: @user.badges, as: :badge %>
+</div>

@@ -17,7 +17,8 @@ class Badge < ApplicationRecord
     # Iterates through all badges and checks if the requirement is met.
     # If so, add the user to the badge (and thus, the badge to the user)...
     # ...only if the user doesn't already have the badge.
-    	Badge.all.each do |badge|
+    Badge.transaction do
+    	Badge.all.includes(:users).each do |badge|
       		if(eval(badge.rules))
         		unless badge.users.include?(user)
           			badge.users << user
@@ -28,6 +29,7 @@ class Badge < ApplicationRecord
       			end
       		end
     	end
-  	end
+  	 end
+    end
 
 end

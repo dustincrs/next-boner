@@ -1,17 +1,35 @@
-from dustin: the project partial should eventually show less stuff (detail will be on the #show)
-<h3> <%= link_to project.title, project_path(project.id) %> </h3>
-<p> Category: <%= project.category %> </p>
-<p> Estimated Time: <%= project.estimated_time %> </p>
-<p>Max People: <%= project.max_people %> </p>
-<p>location: <%= project.location %> </p>
-<p>latitude: <%= project.latitude %> </p>
-<p>longitude: <%= project.longitude %> </p>
-<p>Poster: <%= project.user.first_name %> </p>
-<%if signed_in?%>
-	<%if current_user.id == project.user_id %>
-		<%= link_to 'Edit', edit_project_path(project) %> 
-		<%= link_to 'Delete', project_path(project),
-						method: :delete,
-						data: {confirm: 'Sure?'}%>
-	<%end%>
-<%end%>
+<div class="col-12 my-2">
+	<div class="card" style="width: 100%; height: 100%">
+		<div class="card-header">
+			<div class="row">
+				<div class="col text-left">
+					<b><%=link_to project.title, project_path(project.id), style: "color:black"%></b>
+				</div>
+				<div class="col text-right">
+					<%=(project.is_complete==true)? '<span style="color:green">COMPLETE</span>'.html_safe : ""%>
+				</div>
+			</div>
+			
+		</div>
+
+		<div class="card-body">
+			<div class="card-text">
+				<%=project.detail%>
+			</div>
+		</div>
+
+		<div class="card-footer">
+			<div class="row text-center">
+				<div data-toggle="tooltip" title="<%=project.category%>" class="col">
+					<%=project.category_icon%>
+				</div>
+				<div data-toggle="tooltip" title="<%=project.max_people%> people needed" class="col">
+					<%=project.display_capacity%>
+				</div>
+				<div data-toggle="tooltip" title="<%=project.estimated_time%> minutes" class="col">
+					<%=project.display_estimated_time%>
+				</div>
+			</div>
+		</div>
+	</div>    	
+</div>
