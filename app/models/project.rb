@@ -3,10 +3,15 @@ class Project < ApplicationRecord
 	CATEGORIES = [["Select a Category", ""], "Heavy Lifting", "Food", "Automotive", "Sharing", "Advice"]
 
 	SYMBOLS = { 
-	 			clock: '<i class="far fa-clock"></i>'.html_safe,
-	 			person: '<i class="fas fa-people-carry"></i>'.html_safe,
-	 			map: '<i class="fas fa-map-marked-alt"></i>'.html_safe,
-	 			}
+	 			clock: 			'<i class="far fa-clock"></i>',
+	 			person: 		'<i class="fas fa-people-carry"></i>',
+	 			map: 			'<i class="fas fa-map-marked-alt"></i>',
+	 			cat_heavy: 		'<i class="fas fa-weight-hanging"></i>',
+	 			cat_food:		'<i class="fas fa-drumstick-bite"></i>',
+	 			cat_auto:		'<i class="fas fa-car"></i>',
+	 			cat_sharing: 	'<i class="fas fa-praying-hands"></i>',
+	 			cat_advice: 	'<i class="far fa-question-circle"></i>',
+	 			}.map {|_, v| v.html_safe}
 
 	# Enumerations
 	enum status: [:empty, :has_vacancies, :almost_full, :full]
