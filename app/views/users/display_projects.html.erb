@@ -14,5 +14,5 @@
 <hr />
 
 <div class="row">
-	<%= render partial: 'projects/project', collection: @user.projects, as: :project %>
+	<%= render partial: 'projects/project', collection: @user.projects.order(created_at: :desc), as: :project %>
 </div>
