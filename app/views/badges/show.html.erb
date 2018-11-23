@@ -7,6 +7,7 @@
 <div class="row">
 	<div class="col text-center">
 		<h1><%=@user.full_name%>'s Badges</h1>
+		<h5><%=link_to "Back to Profile", user_path(@user.id), class: "btn btn-secondary"%></h5>
 	</div>
 </div>
 
