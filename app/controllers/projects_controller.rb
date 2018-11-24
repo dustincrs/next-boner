@@ -12,9 +12,11 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+
     @responses = @project.responses
     @pending = @responses.where(is_approved: false, is_hidden: false)
     @approved = @responses.where(is_approved: true, is_hidden: false)
+
   end
 
   # GET /projects/new
@@ -82,6 +84,6 @@ class ProjectsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def project_params
-    params.require(:project).permit(:title, :category, :estimated_time, :max_people, :location, :longitude, :latitude, {images:[]})
+    params.require(:project).permit(:title, :category, :estimated_time, :max_people, :location, :longitude, :latitude, {images:[]} , :user_id)
   end
 end

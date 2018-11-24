@@ -6,14 +6,11 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= action_cable_meta_tag %>
-
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
-
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
-
   </head>
   <body>
     <style>
@@ -74,99 +71,97 @@
         <div id="flash_<%= key %>"><%=h value%></div>
       <% end %>
     </div>
-    <!-- sign up modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <p>
+      <!-- sign up modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="card-body">
+              <form class="form-signin">
+                <%= link_to 'Continue with google' , '/auth/google_oauth2' ,class:"fab fa-google btn btn-lg btn-google btn-block text-uppercase" , type:"submit" %>
+                <%= link_to 'Continue with facebook' , '/auth/facebook' ,class:"fab fa-facebook-f mr-2 btn btn-lg btn-facebook btn-block text-uppercase" , type:"submit" %>
+              </div>
+            </form>
+            <hr class="hr-text" data-content="OR">
+            <p>Create a "our app name" account     <%=link_to 'Create Account' , sign_up_path %></p>
+          </div>
+          <div class="modal-footer">
+            <p class = "mr-auto">Already have a "our app name" app?    <%=link_to 'Login' , sign_in_path %> </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- login modal -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
-          </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="card-body">
-            <form class="form-signin">
-              <%= link_to 'Continue with google' , '/auth/google_oauth2' ,class:"fab fa-google btn btn-lg btn-google btn-block text-uppercase" , type:"submit" %>
-              <%= link_to 'Continue with facebook' , '/auth/facebook' ,class:"fab fa-facebook-f mr-2 btn btn-lg btn-facebook btn-block text-uppercase" , type:"submit" %>
-            </div>
-          </form>
-          <hr class="hr-text" data-content="OR">
-          <p>Create a "our app name" account     <%=link_to 'Create Account' , sign_up_path %></p>
-        </div>
-        <div class="modal-footer">
-          <p class = "mr-auto">Already have a "our app name" app?    <%=link_to 'Login' , sign_in_path %> </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- login modal -->
-  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <!-- <div class="container"> -->
-          <!-- <div class="row"> -->
-          <!-- <div class="col-sm-9 col-md-7 col-lg-5 mx-auto"> -->
-          <div class="card-body">
-            <!-- <div class="card card-signin my-5"> -->
-            <%= bootstrap_form_for :session, url:session_path , :html => {:class => 'form-signin' }  do |form| %>
-              <div class="text-field">
-                <div class="form-label-group">
-                  <%= form.text_field :email, type: 'email' ,label: "Email", label_class: "labels"  , class: "form-control" ,placeholder:"Email address" , autofocus:true %>
-                </div>
-              </div>
-              <div class="password-field">
-                <div class="form-label-group">
-                  <%= form.password_field :password  , label:"Password" , label_class: "labels", id:"inputPassword" , type:"Password" , class:"form-control" , placeholder: "Password" , autofocus:true%>
-                </div>
-              </div>
-              <div class="submit-field">
-                <%= form.submit 'Login' , class: "btn btn-lg btn-primary btn-block text-uppercase mb-3"%>
-              </div>
-              <div class="other-links">
-                <% if Clearance.configuration.allow_sign_up? %>
-                <% end %>
-              </div>
-              <hr class="hr-text" data-content="OR">
-              <%= link_to 'Continue with google' , '/auth/google_oauth2' ,class:"fab fa-google btn btn-lg btn-google btn-block text-uppercase mb-3" %>
-              <!--  <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i>Continue with Google</button> --><%= link_to 'Continue with facebook' , '/auth/facebook' ,class:"fab fa-facebook-f mr-2 btn btn-lg btn-facebook btn-block text-uppercase"  , method: "get" %>
-              <!--             <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i>Continue with Facebook</button> -->
-            </div>
+            <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <!--      </div>
+          <div class="modal-body">
+            <!-- <div class="container"> -->
+            <!-- <div class="row"> -->
+            <!-- <div class="col-sm-9 col-md-7 col-lg-5 mx-auto"> -->
+            <div class="card-body">
+              <!-- <div class="card card-signin my-5"> -->
+              <%= bootstrap_form_for :session, url:session_path , :html => {:class => 'form-signin' }  do |form| %>
+                <div class="text-field">
+                  <div class="form-label-group">
+                    <%= form.text_field :email, type: 'email' ,label: "Email", label_class: "labels"  , class: "form-control" ,placeholder:"Email address" , autofocus:true %>
+                  </div>
+                </div>
+                <div class="password-field">
+                  <div class="form-label-group">
+                    <%= form.password_field :password  , label:"Password" , label_class: "labels", id:"inputPassword" , type:"Password" , class:"form-control" , placeholder: "Password" , autofocus:true%>
+                  </div>
+                </div>
+                <div class="submit-field">
+                  <%= form.submit 'Login' , class: "btn btn-lg btn-primary btn-block text-uppercase mb-3"%>
+                </div>
+                <div class="other-links">
+                  <% if Clearance.configuration.allow_sign_up? %>
+                  <% end %>
+                </div>
+                <hr class="hr-text" data-content="OR">
+                <%= link_to 'Continue with google' , '/auth/google_oauth2' ,class:"fab fa-google btn btn-lg btn-google btn-block text-uppercase mb-3" %>
+                <!--  <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i>Continue with Google</button> --><%= link_to 'Continue with facebook' , '/auth/facebook' ,class:"fab fa-facebook-f mr-2 btn btn-lg btn-facebook btn-block text-uppercase"  , method: "get" %>
+                <!--             <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i>Continue with Facebook</button> -->
+              </div>
+            </div>
+            <!--      </div>
      </div>
   </div> -->
-          <!-- </div> -->
-          <div class="modal-footer">
-            <p class = "mr-auto">Dont have an account? <%= link_to t(".sign_up"), sign_up_path %></p>
+            <!-- </div> -->
+            <div class="modal-footer">
+              <p class = "mr-auto">Dont have an account? <%= link_to t(".sign_up"), sign_up_path %></p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  <%end%>
-  <div class= "container my-5">
-    <div class="row">
-      <div class="col">
-        <%= yield %>
+    <%end%>
+    <div class= "container my-5">
+      <div class="row">
+        <div class="col">
+          <%= yield %>
+        </div>
       </div>
     </div>
-  </div>
-
-
-  <!-- For activating tooltips -->
-  <script>
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
-  </script>
-
-</body>
+    <!-- For activating tooltips -->
+    <script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+    </script>
+  </body>
 </html>

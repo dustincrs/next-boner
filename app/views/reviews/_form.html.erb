@@ -1,6 +1,7 @@
+<!-- # <h2>New review for <#%="#{@user.full_name} regarding #{@project.title}"%></h2> -->
 <%= form_with scope: :review, url: reviews_path do |form| %>
   <%= form.hidden_field :project_id, value: @project.id%>
-  <%= form.hidden_field :user_id, value: @user.id%>
+  <%#= form.hidden_field :user_id, value: @user.id%>
   <div>
     <%= form.label :rating%>
   </div>
