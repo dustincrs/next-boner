@@ -53,3 +53,33 @@
   <%end%>
 <% end %>
 <%= link_to 'Chat', rooms_show_path %>
+
+<!-- Modal -->
+<div class="modal fade" id="ratingmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Rate Volunteer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <%= render :partial => 'reviews/form' %>      
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#my_modal').on('show.bs.modal', function(e) {
+
+    //get data-id attribute of the clicked element
+    var bookId = $(e.relatedTarget).data('book-id');
+
+    //populate the textbox
+    $(e.currentTarget).find('input[name="bookId"]').val(bookId);
+  });
+</script>
