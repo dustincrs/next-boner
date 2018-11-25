@@ -52,7 +52,7 @@ class Project < ApplicationRecord
 
 	private
 	def limits_volunteers_to_max_people
-		if(max_people > 0 && responses.where(is_approved: true).size >= max_people)
+		if(max_people > 0 && responses.where(is_approved: true).size > max_people)
 			errors.add(:max_people, "cannot be exceeded.")
 		end
 	end

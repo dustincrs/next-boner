@@ -7,6 +7,7 @@ class ReviewsController < ApplicationController
 
   def create
     new_review = Review.new(review_params)
+    new_review.rating = 0 if (new_review.rating.nil? == true)
 
     if(new_review.save)
       flash[:success] = "Successfully reviewed #{new_review.user.full_name}!"
