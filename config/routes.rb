@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  mount ActionCable.server => '/cable'  
+  post '/rate' => 'rater#create', :as => 'rate'
+  mount ActionCable.server => '/cable'
   get 'rooms/show'
   root :to  => 'welcome#index'
 
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
   get 'reviews/:project_id/:user_id/new' => 'reviews#new', as: 'new_review'
   get 'reviews/:review_id' => 'reviews#show', as: 'review'
   post 'reviews/create' => 'reviews#create', as: 'reviews'
-  
+
   # Clearance
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
@@ -35,10 +36,10 @@ Rails.application.routes.draw do
 
   # Google OAuth
   get "/auth/:provider/callback" => "sessions#create_from_omniauth"
-  
+
   # Facebook OAuth
   Rails.application.routes.draw do
-  get 'rooms/show'
+    get 'rooms/show'
     get 'auth/facebook/callback', to: "sessions#create"
     get 'auth/failure', to: redirect('/')
   end
