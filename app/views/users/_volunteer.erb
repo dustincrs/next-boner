@@ -10,7 +10,7 @@
 	<% if(response.project.is_complete == true) %>
 		<% if (Review.find_by(user_id: response.user.id, project_id: response.project.id).nil?) %>
 			<div class="col-1">
-				<%= link_to "<i class=\"fas fa-pen-fancy\" style=\"color: yellow\"></i>".html_safe , "#" , "data-target":"#ratingmodal-#{response.user.id}" , "data-toggle":"modal", id: "#{response.user.id}"%>
+				<%= link_to "<i class=\"fas fa-pen-fancy\" style=\"color: orange\"></i>".html_safe , "#" , "data-target":"#ratingmodal-#{response.user.id}" , "data-toggle":"modal", id: "#{response.user.id}"%>
 			</div>			
 		<%end%>
 	<% else %>
