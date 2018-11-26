@@ -6,9 +6,11 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    new_review = Review.new(review_params)
-    new_review.rating = 0 if (new_review.rating.nil? == true)
-    
+    @new_review = Review.new(review_params)
+    @new_review.rating = 0 if (@new_review.rating.nil? == true)
+
+    @save_success = @new_review.save
+
     respond_to do |format|
       format.js {render 'reviews/on_form_submit'}
     end

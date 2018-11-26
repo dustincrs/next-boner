@@ -1,1 +1,4 @@
-$(".modal").modal("hide")
+if(<%=@save_success%>)	{
+	$(".modal").modal("hide")
+	$("#<%=@new_review.user.id%>").hide()
+}
