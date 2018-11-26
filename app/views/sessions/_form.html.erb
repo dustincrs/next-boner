@@ -1,10 +1,10 @@
 <%= bootstrap_form_for :session, url: session_path do |form| %>
   <div class="text-field">
-    <%= form.text_field :email, type: 'email' %>
+    <%= form.text_field :email, type: 'email', placeholder: "Email Address", hide_label: true %>
   </div>
 
   <div class="password-field">
-    <%= form.password_field :password %>
+    <%= form.password_field :password, placeholder: "Password", hide_label: true %>
   </div>
 
   <div class="row">
