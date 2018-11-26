@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tag %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= action_cable_meta_tag %>
-
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
-
   </head>
-
   <body>
     <style>
       .coordinates {
@@ -32,7 +29,6 @@
           display: none;
       }
     </style>
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <!-- instead of home this is gonna be our logo -->
       <a href="<%=root_url%>"><img src="/logo.png" alt="logo" class="navbar-brand" style="width: 25px"></a>
@@ -51,6 +47,14 @@
               </li>
               <li class="nav-item">
                 <%= link_to 'Login', "#", data: {toggle: "modal", target: "#exampleModal1"} , class:"nav-link" %>
+                <li>
+                  <%= form_with url: search_path , class:"form-inline" ,local:true do |form| %>
+                    <%= form.text_field :search , class:"form-control mr-sm-2", type:"search", placeholder: "Search", id:"keyup" , list:"titles" %>
+                    <%= form.submit  "Search" , class:"btn btn-outline-dark my-2 my-sm-0"  %>
+                    <datalist id="titles">
+                    </datalist>
+                  <% end %>
+                </li>
               <% end %>
               <% if signed_in? %>
                 <li class="nav-item dropdown mr-5">
@@ -64,6 +68,12 @@
                 <li class="nav-item">
                   <%=link_to image_tag(current_user.avatar_url.to_s, class:"navpicture") , user_path(current_user.id) %>
                 </li>
+                <li>
+                  <%= form_with url: search_path , class:"form-inline" , local:true do |form| %>
+                    <%= form.text_field :search , class:"form-control mr-sm-2", type:"search", placeholder: "Search" %>
+                    <%= form.submit  "Search" , class:"btn btn-outline-dark my-2 my-sm-0"  %>
+                  <% end %>
+                </li>
                 <%= link_to 'Logout' , sign_out_path , class:'nav-link' , :method => :delete %>
               <% end %>
             </li>
@@ -71,13 +81,11 @@
         </ul>
       </div>
     </nav>
-
     <div id="flash" class="text-center">
       <% flash.each do |key, value| -%>
         <div id="flash_<%= key %>"><%=h value%></div>
       <% end %>
     </div>
-
     <!-- sign up modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -148,21 +156,18 @@
       </div>
     </div>
   <%end%>
-  <div class= "container my-5">
+  <div class= "container-fluid">
     <div class="row">
       <div class="col">
         <%= yield %>
       </div>
     </div>
   </div>
-
-
   <!-- For activating tooltips -->
   <script>
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     })
   </script>
-
-  </body>
+</body>
 </html>

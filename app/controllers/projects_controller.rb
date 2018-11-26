@@ -6,7 +6,18 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     # @user = current_user
-    @projects = Project.all
+    if params[:search]
+      @projects = Project.text_search(params[:search])
+    else
+      @projects = Project.all
+
+    end
+    respond_to do |format|
+      format.html
+      format.js
+      format.json { render json:@projects}
+    end
+
   end
 
   # GET /projects/1
@@ -75,6 +86,11 @@ class ProjectsController < ApplicationController
     @project.update(is_complete: true)
     redirect_to project_path(@project.id)
   end
+  def search
+    @projects = Project.text_search(params[:search])
+    render 'index'
+  end
+
 
   private
   # Use callbacks to share common setup or constraints between actions.

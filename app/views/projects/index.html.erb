@@ -1,31 +1,3 @@
-<p id="notice"><%= notice %></p>
-<h1>Projects</h1>
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%@projects.each do |p|%>
-      <h3> <%= link_to p.title , project_path(p.id)%> </h3>
-      <p> Category: <%= p.category %> </p>
-      <p> Estimated Time: <%= p.estimated_time %> </p>
-      <p>Max People: <%= p.max_people %> </p>
-      <p>Poster: <%= p.user.first_name %> </p>
-      <tr>
-        <%# <td><%= link_to 'Show', project %></td>
-
-      <%# <td><%= link_to 'Edit', edit_project_path(project) %></td>
-
-    <td><%= link_to 'Edit', edit_project_path(p) %> </td>
-    <%# <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-
-</tr>
-<% end %>
-</tbody>
-</table>
-<br>
-<%= link_to 'New Project', new_project_path %>
-
-
+<div id = "all">
+  <%= render 'projects' %>
+</div>
