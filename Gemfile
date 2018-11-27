@@ -24,6 +24,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -50,7 +51,10 @@ gem 'carrierwave-aws'
 gem 'aws-sdk-rails'
 gem 'rmagick'
 gem "mini_magick"
-# gem 'ImageMagick'
+gem 'engtagger'
+
+gem 'faker'
+
 
 
 # Reduces boot times through caching; required in config/boot.rb

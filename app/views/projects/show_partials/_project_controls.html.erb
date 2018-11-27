@@ -1,0 +1,21 @@
+<!--Partial for rendering settings -->
+<% if signed_in? %>
+  <% if current_user.can_view_project_detail?(@project) %>
+    <% if @project.is_complete == false %>
+      <div class="row mb-2">
+        <div class="col">
+          <%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-secondary w-100' %>
+        </div>
+        <div class="col">
+          <%= link_to 'Mark as Complete', complete_project_path(@project.id), method: :patch, class: 'btn btn-success w-100'%>
+        </div>
+        <div class="col">
+          <%= link_to 'Delete', project_path(@project),
+                                method: :delete,
+                                data: {confirm: 'Sure?'},
+                                class: 'btn btn-danger w-100'%>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
