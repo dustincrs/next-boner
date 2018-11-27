@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <h1>Projects</h1>
 <%= form_with url: projects_path , class:"form-inline" ,method: :get do |form| %>
-  <%= form.text_field :search , id:"keyup", class:"form-control mr-sm-2" , type:"search", placeholder: "Search by title" , list:"titles"%>
+  <%= form.text_field :search , id:"keyupz", class:"form-control mr-sm-2" , type:"search", placeholder: "Search by title" , list:"titles"%>
   <datalist id="titles">
   </datalist>
   <%= form.submit "Search",  class:"btn btn-outline-dark my-2 my-sm-0"  %>
