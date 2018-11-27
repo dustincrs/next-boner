@@ -83,7 +83,6 @@
     var coordinates = document.getElementById('coordinates');
     var longitude = document.getElementById('project_longitude');
     var latitude = document.getElementById('project_latitude');
-    console.log(document.getElementById('project_location'))
     var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v9',
@@ -98,6 +97,19 @@
     //.setLngLat([101.686855, 3.139003])
     //.addTo(map);
     
+    //Add Search function by location
+    var geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      zoom: 17,
+      placeholder: "Enter search e.g. Glo",
+    });
+    
+     //attempt at making marker follow the geocoder,
+    map.addControl(geocoder);
+    
+    // Add zoom and rotation controls to the map.
+    map.addControl(new mapboxgl.NavigationControl());
+  
     // Add geolocate control to the map.
     geolocate = new mapboxgl.GeolocateControl({
     positionOptions: {
@@ -114,21 +126,8 @@
       latitude.value= coord.latitude;
     });
     
-    // Add zoom and rotation controls to the map.
-    map.addControl(new mapboxgl.NavigationControl());
-    
-    //Add Search function by location
-    var geocoder = new MapboxGeocoder({
-      accessToken: mapboxgl.accessToken,
-      zoom: 17,
-      placeholder: "Enter search e.g. Glo",
-    });
-    
-    map.addControl(geocoder);
-     //attempt at making marker follow the geocoder,
     //geocoder automatically updates coordinates form
     geocoder.on('result', function(object){
-       console.log(object.result.geometry.coordinates);
        var coord = object.result.geometry.coordinates;
        marker.setLngLat([coord[0], coord[1]]).addTo(map);
        longitude.value = coord[0];
