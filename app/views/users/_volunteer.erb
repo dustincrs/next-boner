@@ -2,7 +2,7 @@
 	<div class="col"><%= link_to response.user.full_name, user_path(response.user.id)%></div>
 
 	<% if(response.is_approved == false) %>
-		<div class="col-1">
+		<div class="col-1" id="approve-volunteer-div">
 			<%= form_with url: response_path(response.id), method: :put do |form| %>
 			  <%= form.button "<i class=\"fas fa-check\" style=\"color: green\"></i>".html_safe, type: "submit", class: "btn btn-link"%>
 			<% end %>

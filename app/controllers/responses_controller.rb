@@ -23,15 +23,13 @@ class ResponsesController < ApplicationController
 		respond_to do |format|
 			# Make is_hidden to true
 			if(params[:_method]=="patch")
-				#@response.is_hidden = true
-				#@response.is_approved = false
-				format.js {render "responses/hide_volunteer", locals: {response_id: @response.id}}
-				#@response.save!
+				@response.is_hidden = true
+				@response.is_approved = false
+				format.js { render "responses/hide_volunteer" } if (@response.save!)
 
 			elsif(params[:_method]=="put")
-				#@response.is_approved = true
-				format.js { render "responses/approve_volunteer"}
-				#@response.save!
+				@response.is_approved = true
+				format.js { render "responses/approve_volunteer" } if (@response.save!)
 			end
 		end
 
