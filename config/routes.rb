@@ -47,4 +47,7 @@ Rails.application.routes.draw do
     get 'auth/failure', to: redirect('/')
   end
 
+  #chatrooms
+  get '/projects/:id/rooms', to: 'rooms#show', as: 'chatroom' 
+
 end

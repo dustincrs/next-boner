@@ -14,9 +14,6 @@
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
   </head>
   <body>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
-    <link rel = "stylesheet" href = "search_bar.scss">
     <style>
       .coordinates {
           background: rgba(0,0,0,0.5);
@@ -32,12 +29,12 @@
           display: none;
       }
     </style>
-    <nav class="navbar navbar-expand-lg navbar-light container-fluid" style="background-color: #bdecb6;">
+    <nav class="navbar navbar-expand-lg navbar-dark container-fluid">
       <!-- instead of home this is gonna be our logo -->
       <a href="<%=root_url%>"><img src="/logo.png" alt="logo" class="navbar-brand" style="width: 25px"></a>
       <%= form_with url: search_path , class:"form-inline" ,local:true do |form| %>
         <%= form.text_field :search , class:"form-control mr-sm-2", type:"search", placeholder: "Search", id:"keyup" , list:"titles" %>
-        <%= form.submit  "Search" , class:"btn btn-outline-dark my-2 my-sm-0"  %>
+        <%= form.submit  "Search" , class:"btn btn-dark"  %>
         <datalist id="titles">
         </datalist>
       <% end %>

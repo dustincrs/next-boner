@@ -3,23 +3,23 @@ class Project < ApplicationRecord
   CATEGORIES = [["", ""], "Heavy Lifting", "Food", "Automotive", "Sharing", "Advice", "Interpersonal Favours"]
 
   SYMBOLS = {
-    category: 		'<i class="fas fa-box-open"></i>',
-    clock: 			'<i class="far fa-clock"></i>',
-    person: 		'<i class="fas fa-people-carry"></i>',
-    map: 			'<i class="fas fa-map-marked-alt"></i>',
+    category:     '<i class="fas fa-box-open"></i>',
+    clock:      '<i class="far fa-clock"></i>',
+    person:     '<i class="fas fa-people-carry"></i>',
+    map:      '<i class="fas fa-map-marked-alt"></i>',
 
-    empty: 			'<span style="color: green">Empty</span>',
-    has_vacancies:	'<span style="color: yellow">Filling Up</span>',
-    almost_full: 	'<span style="color: orange">Almost Full</span>',
-    full: 			'<span style="color: red">Full</span>',
+    empty:      '<span style="color: green">Empty</span>',
+    has_vacancies:  '<span style="color: yellow">Filling Up</span>',
+    almost_full:  '<span style="color: orange">Almost Full</span>',
+    full:       '<span style="color: red">Full</span>',
 
-    heavy_lifting:	'<i class="fas fa-weight-hanging"></i>',
-    food:			'<i class="fas fa-drumstick-bite"></i>',
-    automotive:		'<i class="fas fa-car"></i>',
-    sharing: 		'<i class="fas fa-praying-hands"></i>',
-    advice: 		'<i class="far fa-question-circle"></i>',
+    heavy_lifting:  '<i class="fas fa-weight-hanging"></i>',
+    food:     '<i class="fas fa-drumstick-bite"></i>',
+    automotive:   '<i class="fas fa-car"></i>',
+    sharing:    '<i class="fas fa-praying-hands"></i>',
+    advice:     '<i class="far fa-question-circle"></i>',
     interpersonal_favours: '<i class="fas fa-heart"></i>',
-    scraped: 		'<i class="fas fa-robot"></i>',
+    scraped:    '<i class="fas fa-robot"></i>',
   }.map {|k, v| [k, v.html_safe]}.to_h
 
   # Enumerations
@@ -28,6 +28,7 @@ class Project < ApplicationRecord
   # Associations
   belongs_to :user
   has_many :responses
+  has_one :chatroom
   mount_uploaders :images, ImagesUploader
 
   # Validations
@@ -35,12 +36,6 @@ class Project < ApplicationRecord
   validates :max_people, numericality: { greater_than: -1 }
   validates :estimated_time, numericality: {greater_than: 0}
   validate :limits_volunteers_to_max_people
-
-  #Scope
-  scope :text_search, -> (text) {
-    text_with_wildcard = "%#{text}%"
-    where("title ILIKE ?", text_with_wildcard)
-  }
 
   # Functions
   def category_icon
