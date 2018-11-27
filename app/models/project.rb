@@ -30,6 +30,11 @@ class Project < ApplicationRecord
   has_many :responses
   has_one :chatroom
   mount_uploaders :images, ImagesUploader
+  #scope
+  scope :text_search, -> (text) {
+    text_with_wildcard = "%#{text}%"
+    where("title ILIKE ?", text_with_wildcard)
+  }
 
   # Validations
   validates :title, :estimated_time, :max_people, :detail, :location, :latitude, :longitude, :category, presence: true
