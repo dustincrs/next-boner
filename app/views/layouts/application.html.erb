@@ -12,7 +12,10 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+<<<<<<< HEAD
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+=======
+>>>>>>> 8c83597b81d304504c53971a29550d6cfd8c5c09
   </head>
   <body>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -33,7 +36,12 @@
           display: none;
       }
     </style>
+<<<<<<< HEAD
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+=======
+
+    <nav class="navbar navbar-expand-lg navbar-light container-fluid" style="background-color: #bdecb6;">
+>>>>>>> 8c83597b81d304504c53971a29550d6cfd8c5c09
       <!-- instead of home this is gonna be our logo -->
       <a href="<%=root_url%>"><img src="/logo.png" alt="logo" class="navbar-brand" style="width: 25px"></a>
       <%= form_with url: search_path , class:"form-inline" ,local:true do |form| %>
@@ -78,7 +86,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Sign Up for Boner</h5>
           </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -87,15 +95,14 @@
         <div class="modal-body">
           <div class="card-body">
             <form class="form-signin">
-              <%= link_to 'Continue with google' , '/auth/google_oauth2' ,class:"fab fa-google btn btn-lg btn-google btn-block text-uppercase" , type:"submit" %>
-              <%= link_to 'Continue with facebook' , '/auth/facebook' ,class:"fab fa-facebook-f mr-2 btn btn-lg btn-facebook btn-block text-uppercase" , type:"submit" %>
+              <%= link_to ' Continue with Google' , '/auth/google_oauth2' ,class:"fab fa-google btn btn-lg btn-google btn-block text-uppercase" , type:"submit" %>
+              <%= link_to ' Continue with Facebook' , '/auth/facebook' ,class:"fab fa-facebook-f mr-2 btn btn-lg btn-facebook btn-block text-uppercase" , type:"submit" %>
             </div>
           </form>
           <hr class="hr-text" data-content="OR">
-          <p>Create a "our app name" account     <%=link_to 'Create Account' , sign_up_path %></p>
+          <p><%=link_to 'Create A Boner Account' , sign_up_path, class: 'btn btn-primary w-100' %></p>
+          <p class = "mr-auto"><%=link_to 'Login to Boner' , sign_in_path, class: 'btn btn-success w-100' %> </p>
         </div>
-        <div class="modal-footer">
-          <p class = "mr-auto">Already have a "our app name" app?    <%=link_to 'Login' , sign_in_path %> </p>
         </div>
       </div>
     </div>
@@ -105,7 +112,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Login to Boner</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -113,31 +120,22 @@
         <div class="modal-body">
           <div class="card-body">
             <%= bootstrap_form_for :session, url:session_path , :html => {:class => 'form-signin' }  do |form| %>
-              <div class="text-field">
-                <div class="form-label-group">
-                  <%= form.text_field :email, type: 'email' ,label: "Email", label_class: "labels"  , class: "form-control" ,placeholder:"Email address" , autofocus:true %>
-                </div>
-              </div>
-              <div class="password-field">
-                <div class="form-label-group">
-                  <%= form.password_field :password  , label:"Password" , label_class: "labels", id:"inputPassword" , type:"Password" , class:"form-control" , placeholder: "Password" , autofocus:true%>
-                </div>
-              </div>
-              <div class="submit-field">
-                <%= form.submit 'Login' , class: "btn btn-lg btn-primary btn-block text-uppercase mb-3"%>
-              </div>
-              <div class="other-links">
-                <% if Clearance.configuration.allow_sign_up? %>
-                <% end %>
-              </div>
+
+                <%= form.text_field :email, type: 'email' , hide_label: true, placeholder:"Email Address" %>
+
+          
+                <%= form.password_field :password,  hide_label: true, id:"inputPassword" , type:"password" , placeholder: "Password"%>
+          
+          
+                <%= form.submit 'Login' , class: "btn btn-lg btn-primary btn-block text-uppercase mb-2"%>
+            
               <hr class="hr-text" data-content="OR">
-              <%= link_to 'Continue with google' , '/auth/google_oauth2' ,class:"fab fa-google btn btn-lg btn-google btn-block text-uppercase mb-3" %>
-              <!--  <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i>Continue with Google</button> --><%= link_to 'Continue with facebook' , '/auth/facebook' ,class:"fab fa-facebook-f mr-2 btn btn-lg btn-facebook btn-block text-uppercase"  , method: "get" %>
-              <!--             <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i>Continue with Facebook</button> -->
+              <%= link_to ' Continue with Google' , '/auth/google_oauth2' ,class:"fab fa-google btn btn-lg btn-google btn-block text-uppercase mb-2" %>
+              <%= link_to ' Continue with Facebook' , '/auth/facebook' ,class:"fab fa-facebook-f mr-2 btn btn-lg btn-facebook btn-block text-uppercase", method: "get" %>
             </div>
           </div>
           <div class="modal-footer">
-            <p class = "mr-auto">Dont have an account? <%= link_to t(".sign_up"), sign_up_path %></p>
+            <%= link_to "Dont have an account? Sign up!", sign_up_path, class: 'btn btn-success w-100' %>
           </div>
         </div>
       </div>
@@ -146,14 +144,16 @@
   <div class= "container-fluid">
     <div class="row">
       <div class="col">
-        <%= yield %>
+        <div class="jumbotron">
+          <%= yield %>
+        </div>
       </div>
     </div>
   </div>
   <!-- For activating tooltips -->
   <script>
     $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
+      $('[data-toggle="tooltip"]').tooltip();
     })
   </script>
 </body>

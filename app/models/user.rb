@@ -63,6 +63,11 @@ class User < ApplicationRecord
     return ""
   end
 
+  # Returns true if the user is the owner of the project, a moderator, or an admin
+  def can_view_project_detail?(project_object)
+    (id == project_object.user.id || moderator? || superadmin?)? true : false
+  end
+
   # Google OmniAuth
   def self.create_with_auth_and_hash(authentication, auth_hash)
     first_name = auth_hash["info"]["name"].split(" ").first

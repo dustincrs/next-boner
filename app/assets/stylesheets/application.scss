@@ -194,8 +194,6 @@
     width: 35px;
 }
 
-
-
 .image{
   width: 100%;
   height: auto;
@@ -207,10 +205,11 @@ color:#008489;
 }
 
 body {
-  font-family:Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  color:#484848;
 
-
+	font-family:Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	color:#484848;
+  background-image: url("/bg.png");
+  background-size: cover;
 }
 
 #flash_error  {

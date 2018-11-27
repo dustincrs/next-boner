@@ -57,11 +57,17 @@ namespace :scrape do
   	end
 
 
-	doc = Nokogiri::HTML(open("https://www.eventbrite.com/d/malaysia--kuala-lumpur/charity-and-causes--events--this-month/?page=1"))
-	event_links = doc.css("div.eds-media-card-content__primary-content a").map { |e| e[:href]}.uniq
+  	eb_urls_to_scrape = [	"https://www.eventbrite.com/d/singapore--singapore/charity-and-causes--events--this-month/?page=1",
+  							"https://www.eventbrite.com/d/malaysia--kuala-lumpur/charity-and-causes--events--this-month/?page=1",
+  						]
 
-	event_links.each do |event|
-		create_project_from_event_page_url(event)
+  	eb_urls_to_scrape.each do |url|
+		doc = Nokogiri::HTML(open(url))
+		event_links = doc.css("div.eds-media-card-content__primary-content a").map { |e| e[:href]}.uniq
+
+		event_links.each do |event|
+			create_project_from_event_page_url(event)
+		end
 	end
   end
 end
