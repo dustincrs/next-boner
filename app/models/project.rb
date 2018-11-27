@@ -25,6 +25,7 @@ class Project < ApplicationRecord
 	# Associations
 	belongs_to :user
 	has_many :responses
+	has_one :chatroom
 	mount_uploaders :images, ImagesUploader
 
 	# Validations
