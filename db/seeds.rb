@@ -118,6 +118,13 @@ end
 
 report_seeding(saved_responses, total_responses, "responses")
 
+# Take out responses where max_people are exceeded
+Project.all.each do |project|
+	while(project.responses.where(is_approved: true).size > project.max_people)
+		project.responses.last.destroy
+	end
+end
+
 # Seed reviews
 total_reviews = 0
 saved_reviews = 0
