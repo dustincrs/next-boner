@@ -1,55 +1,53 @@
-<div class="jumbotron pt-3">
-  <%=(@project.is_complete)? "<h3 class=\"text-center\">Project completed!</h3>".html_safe : "" %>
-  <%=render partial: "projects/show_partials/project_controls" %>
-  <%=render partial: "projects/show_partials/project_always_present" %>
-  <%=render partial: "projects/show_partials/project_map_partial" %>
-  <%=render partial: "projects/show_partials/project_volunteers" %>
-  
-  <% if signed_in? %>
-    <%if current_user.id != @project.user.id && @responses.find_by(user_id: current_user.id).nil? && @project.is_complete == false%>
-      <%=link_to "Volunteer!", "#", "data-target": "#confirm-volunteering-modal", "data-toggle": "modal", class: 'btn btn-primary w-100' %>
-    <% end %>
+<%=(@project.is_complete)? "<h3 class=\"text-center\">Project completed!</h3>".html_safe : "" %>
+<%=render partial: "projects/show_partials/project_controls" %>
+<%=render partial: "projects/show_partials/project_always_present" %>
+<%=render partial: "projects/show_partials/project_map_partial" %>
+<%=render partial: "projects/show_partials/project_volunteers" %>
+
+<% if signed_in? %>
+  <%if current_user.id != @project.user.id && @responses.find_by(user_id: current_user.id).nil? && @project.is_complete == false%>
+    <%=link_to "Volunteer!", "#", "data-target": "#confirm-volunteering-modal", "data-toggle": "modal", class: 'btn btn-primary w-100' %>
   <% end %>
+<% end %>
 </div>
 
 
 <!-- Modals for review form -->
 <%@approved.each_with_index do |r|%>
-  <div class="modal fade" id="ratingmodal-<%=r.user.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Rate <%=r.user.full_name%></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <div class="modal-body">
-          <%= render :partial => 'reviews/form', locals: {user_id: r.user.id} %>      
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
-
-<!-- Modal for volunteer confirmation -->
-<div class="modal fade" tabindex="-1" role="dialog" id="confirm-volunteering-modal">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="ratingmodal-<%=r.user.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
+
       <div class="modal-header">
-        <h5 class="modal-title">Confirm</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Rate <%=r.user.full_name%></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
       <div class="modal-body">
-        <%= form_with url: responses_path do |form|%>
-          <%= form.hidden_field :project_id, value: @project.id %>
-          <%= form.submit "I want to volunteer", class: "btn btn-success w-100"%>
-        <% end %>
+        <%= render :partial => 'reviews/form', locals: {user_id: r.user.id} %>      
       </div>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<!-- Modal for volunteer confirmation -->
+<div class="modal fade" tabindex="-1" role="dialog" id="confirm-volunteering-modal">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Confirm</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <%= form_with url: responses_path do |form|%>
+        <%= form.hidden_field :project_id, value: @project.id %>
+        <%= form.submit "I want to volunteer", class: "btn btn-success w-100"%>
+      <% end %>
     </div>
   </div>
 </div>

@@ -1,9 +1,11 @@
-<div class="row mb-2">
+<div class="row mb-2" id="response_<%=response.id%>">
 	<div class="col"><%= link_to response.user.full_name, user_path(response.user.id)%></div>
 
 	<% if(response.is_approved == false) %>
-		<div class="col-1">
-			<%= link_to "<i class=\"fas fa-check\" style=\"color: green\"></i>".html_safe, response_path(response.id), method: :put %>
+		<div class="col-1" id="approve-volunteer-div">
+			<%= form_with url: response_path(response.id), method: :put do |form| %>
+			  <%= form.button "<i class=\"fas fa-check\" style=\"color: green\"></i>".html_safe, type: "submit", class: "btn btn-link"%>
+			<% end %>
 		</div>
 	<% end %>
 
@@ -15,12 +17,10 @@
 		<%end%>
 	<% else %>
 		<div class="col-1">
-			<%= link_to "<i class=\"fas fa-times\" style=\"color: red\"></i>".html_safe, response_path(response.id), method: :patch %>
+			<%= form_with url: response_path(response.id), method: :patch do |form| %>
+				<%= form.button "<i class=\"fas fa-times\" style=\"color: red\"></i>".html_safe, type: "submit", class: "btn btn-link"%>
+			<% end %>
 		</div>
 	<% end %>
-
-	<div class="col-1">
-		<%= link_to "<i class=\"fas fa-comment-alt\" style=\"color: blue\"></i>".html_safe%>
-	</div>
 
 </div>
