@@ -6,18 +6,15 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     # @user = current_user
-    if params[:search]
-      @projects = Project.text_search(params[:search])
-    else
-      @projects = Project.all
+    @projects = Project.text_search(params[:search]).number(params[:number]).less_than(params[:less_than]).greater_than(params[:greater_than]).category(params[:category])
 
-    end
+    # @projects = Project.all
+
     respond_to do |format|
       format.html
       format.js
       format.json { render json:@projects}
     end
-
   end
 
   # GET /projects/1
@@ -50,7 +47,7 @@ class ProjectsController < ApplicationController
       if @project.save
         x = Chatroom.new
         x.project_id = @project.id
-        x.save  
+        x.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else

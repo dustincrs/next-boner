@@ -12,6 +12,7 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
     <style>
@@ -33,7 +34,7 @@
       <!-- instead of home this is gonna be our logo -->
       <a href="<%=root_url%>"><img src="/logo.png" alt="logo" class="navbar-brand" style="width: 25px"></a>
       <%= form_with url: search_path , class:"form-inline" ,local:true do |form| %>
-        <%= form.text_field :search , class:"form-control mr-sm-2", type:"search", placeholder: "Search", id:"keyup" , list:"titles" %>
+        <%= form.text_field :search , class:"form-control mr-sm-2", type:"search", placeholder: "Search by title", id:"keyup" , list:"titles" %>
         <%= form.submit  "Search" , class:"btn btn-outline-info my-2 my-sm-0"  %>
         <datalist id="titles">
         </datalist>

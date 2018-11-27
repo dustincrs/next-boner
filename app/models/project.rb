@@ -30,11 +30,27 @@ class Project < ApplicationRecord
   has_many :responses
   has_one :chatroom
   mount_uploaders :images, ImagesUploader
-  #scope
+  #scopes
   scope :text_search, -> (text) {
+
     text_with_wildcard = "%#{text}%"
-    where("title ILIKE ?", text_with_wildcard)
+    where("title ILIKE ?", text_with_wildcard) if text_with_wildcard.present?
   }
+  scope :number, -> (number) {
+    where("max_people <= ?", number) if number.present?
+  }
+  scope :less_than, -> (less_than) {
+    where("estimated_time <= ?", less_than) if less_than.present?
+  }
+  scope :greater_than, -> (greater_than) {
+    where("estimated_time >= ?", greater_than) if greater_than.present?
+  }
+  scope :category, -> (category) {
+    where("category = ?", category) if category.present?
+  }
+
+
+
 
   # Validations
   validates :title, :estimated_time, :max_people, :detail, :location, :latitude, :longitude, :category, presence: true

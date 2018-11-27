@@ -1,11 +1,51 @@
 <p id="notice"><%= notice %></p>
 <h1>Projects</h1>
 <%= form_with url: projects_path , class:"form-inline" ,method: :get do |form| %>
-  <%= form.text_field :search , id:"keyup", class:"form-control mr-sm-2" , type:"search", placeholder: "Search" , list:"titles"%>
+  <%= form.text_field :search , id:"keyup", class:"form-control mr-sm-2" , type:"search", placeholder: "Search by title" , list:"titles"%>
   <datalist id="titles">
   </datalist>
   <%= form.submit "Search",  class:"btn btn-outline-dark my-2 my-sm-0"  %>
 <% end %>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filtersModal">
+  More Filters
+</button>
+<!-- Modal -->
+<div class="modal fade" id="filtersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">More filters</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= bootstrap_form_with url: projects_path  , class:"form-inline", id:"button" , method: :get do |form| %>
+          <div class = "row mb-3">
+            <div class = "col-4" data-toggle="tooltip" title="Maximum number of people required?">
+              <%= form.text_field :number, hide_label: true, prepend: Project::SYMBOLS[:person]%>
+            </div>
+            <div class = "col-4" data-toggle="tooltip" title="Estimated time Less than">
+              <%= form.text_field :less_than, hide_label: true, prepend: Project::SYMBOLS[:clock]%>
+            </div>
+            <div class = "col-4" data-toggle="tooltip" title="Estimated time Greater than">
+              <%= form.text_field :greater_than, hide_label: true, prepend: Project::SYMBOLS[:clock]%>
+            </div>
+          </div>
+          <div class = "row">
+            <div class = "col-12"data-toggle="tooltip" title="Project category">
+              <%= form.select :category, Project::CATEGORIES, hide_label: true, prepend: Project::SYMBOLS[:category] %>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= form.submit  class:"btn btn-outline-dark my-2 my-sm-0"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 <table>
   <thead>
     <tr>
@@ -13,20 +53,40 @@
     </tr>
   </thead>
   <tbody>
+    <% if @projects.present?%>
+      <h3 class="text-center">Available Projects</h3>
+    <% end %>
     <%@projects.each do |p|%>
-      <h3> <%= link_to p.title , project_path(p.id)%> </h3>
-      <p> Category: <%= p.category %> </p>
-      <p> Estimated Time: <%= p.estimated_time %> </p>
-      <p>Max People: <%= p.max_people %> </p>
-      <p>Poster: <%= p.user.first_name %> </p>
-      <tr>
-        <%# <td><%= link_to 'Show', project %></td>
-      <%# <td><%= link_to 'Edit', edit_project_path(project) %></td>
-    <td><%= link_to 'Edit', edit_project_path(p) %> </td>
-    <%# <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-</tr>
-<% end %>
-</tbody>
+      <div class="col-md-4 col-sm-6">
+        <div class="box1 mb-3">
+          <% if p.images.first.present? %>
+            <img src="<%=p.images.first%>">
+          <% end %>
+          <% if !p.images.first.present? %>
+            <img src = "Volunteer.jpg">
+          <% end %>
+          <p class="title">
+            Title:<%= p.title%><br/>
+            Category: <%= p.category %>
+          </p>
+          <ul class="icon data-toggle="tooltip" title="Show more">
+            <li><a href="<%= project_path(p.id)%>"><i class="fa fa-link"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  </tbody>
 </table>
-<br>
+<br/>
+<% if !@projects.present?%>
+  <h3>Sorry,No available projects with the current search parameters</h3>
+<% end %>
 <%= link_to 'New Project', new_project_path %>
+<script>
+  $(document).ready(function(){
+    $('#button').on('submit', function() {
+      // console.log("hello");
+      $('#filtersModal').modal('hide')
+    });
+  })
+</script>
