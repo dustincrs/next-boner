@@ -12,8 +12,12 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+    <link rel = "stylesheet" href = "search_bar.scss">
     <style>
       .coordinates {
           background: rgba(0,0,0,0.5);
@@ -32,9 +36,12 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <!-- instead of home this is gonna be our logo -->
       <a href="<%=root_url%>"><img src="/logo.png" alt="logo" class="navbar-brand" style="width: 25px"></a>
-      <%= link_to 'All Projects', projects_path ,  class:"navbar-brand" %>
-      <%if signed_in?%>
-      <%end%>
+      <%= form_with url: search_path , class:"form-inline" ,local:true do |form| %>
+        <%= form.text_field :search , class:"form-control mr-sm-2", type:"search", placeholder: "Search", id:"keyup" , list:"titles" %>
+        <%= form.submit  "Search" , class:"btn btn-outline-dark my-2 my-sm-0"  %>
+        <datalist id="titles">
+        </datalist>
+      <% end %>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -47,36 +54,14 @@
               </li>
               <li class="nav-item">
                 <%= link_to 'Login', "#", data: {toggle: "modal", target: "#exampleModal1"} , class:"nav-link" %>
-                <li>
-                  <%= form_with url: search_path , class:"form-inline" ,local:true do |form| %>
-                    <%= form.text_field :search , class:"form-control mr-sm-2", type:"search", placeholder: "Search", id:"keyup" , list:"titles" %>
-                    <%= form.submit  "Search" , class:"btn btn-outline-dark my-2 my-sm-0"  %>
-                    <datalist id="titles">
-                    </datalist>
-                  <% end %>
-                </li>
               <% end %>
               <% if signed_in? %>
-                <li class="nav-item dropdown mr-5">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Volunteering
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <%= link_to 'Ask for Help' , new_project_path , class:"dropdown-item" %>
-                  </div>
+                <li class="nav-item mr-5">
+                  <%= link_to 'Ask for Help' , new_project_path , class:"nav-link" %>
                 </li>
                 <li class="nav-item">
                   <%=link_to image_tag(current_user.avatar_url.to_s, class:"navpicture") , user_path(current_user.id) %>
                 </li>
-                <li>
-                  <%= form_with url: search_path , class:"form-inline" ,local:true do |form| %>
-                    <%= form.text_field :search , class:"form-control mr-sm-2", type:"search", placeholder: "Search", id:"keyup" , list:"titles" %>
-                    <%= form.submit  "Search" , class:"btn btn-outline-dark my-2 my-sm-0"  %>
-                    <datalist id="titles">
-                    </datalist>
-                  <% end %>
-                </li>
-                <%= link_to 'Logout' , sign_out_path , class:'nav-link' , :method => :delete %>
               <% end %>
             </li>
           </li>
