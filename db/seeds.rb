@@ -43,7 +43,7 @@ def generate_project(owner_id)
 	n_p.longitude = Faker::Address.longitude
 	n_p.user_id = owner_id
 	n_p.is_complete = Faker::Boolean.boolean(0.5)
-	n_p.detail = Faker::Hipster.paragraphs(1 + rand(6))
+	n_p.detail = Faker::Hipster.paragraphs(1 + rand(6)).join(" ")
 	return n_p
 end
 
