@@ -1,7 +1,7 @@
 
        $(document).ready(function(){
         $("#keyup").on('keyup', function(e){
-            console.log("hello");
+            // console.log("hello");
 
             $.ajax({
                 url:"/projects",
@@ -10,7 +10,7 @@
                 dataType:"json",
                 success: function(data){
 
-                    console.log(data);
+                    // console.log(data);
                     var box = document.getElementById("titles")
                     box.innerHTML = ""
                     data.forEach(function(project){
@@ -32,7 +32,7 @@
 
        $(document).ready(function(){
         $("#keyupz").on('keyup', function(e){
-            console.log("hello");
+            // console.log("hello");
 
             $.ajax({
                 url:"/projects",
@@ -41,7 +41,7 @@
                 dataType:"json",
                 success: function(data){
 
-                    console.log(data);
+                    // console.log(data);
                     var box = document.getElementById("titles")
                     box.innerHTML = ""
                     data.forEach(function(project){
