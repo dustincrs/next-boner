@@ -196,9 +196,31 @@ a:hover {
   zoom: 14
   });
   
+var text = document.getElementById("hiddenListings").innerHTML.split(";");
+ var collection = []
+text.forEach(function(element)  {
+  let y = element.split(",")
+  
+  let geometry_hash = {}
+  geometry_hash.type = "Point"
+  geometry_hash.coordinates = [y[0], y[1]]
+   let properties_hash = {}
+  properties_hash.title = y[2]
+  properties_hash.location = y[3]
+   let new_hash = {}
+  new_hash.type = "Feature"
+  new_hash.geometry = geometry_hash
+  new_hash.properties = properties_hash
+   collection.push(new_hash)
+});
+ console.log(collection)
+ var geojson = {
+        "type": "FeatureCollection",
+        "features": collection
+      };
 
-console.log(JSON.parse(document.getElementById("hiddenListings").innerHTML.split(";")[0]));
-var x = JSON.parse(document.getElementById("hiddenListings").innerHTML.split(";")[0]);
+      
+x = JSON.parse(document.getElementById("hiddenListings").innerHTML.split(";"));
 
 var geojson = {
         "type": "FeatureCollection",
