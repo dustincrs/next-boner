@@ -9,8 +9,12 @@ $(document).ready ->
 
   App.room = App.cable.subscriptions.create {channel: "RoomChannel", chatroom_id: chatroom_id},
 
+    scroll_bottom = () ->
+      $('#messages').scrollTop($('#messages')[0].scrollHeight)
+
     connected: ->
       # Called when the subscription is ready for use on the server
+      scroll_bottom();
 
     disconnected: ->
       # Called when the subscription has been terminated by the server
@@ -22,6 +26,7 @@ $(document).ready ->
       y.innerHTML = "<p>#{data.user_fname} says: </p> <p>#{data.message}</p>"
       # img src =\"data.user_avatar\"/>
       x.append(y);
+      scroll_bottom();
 
 
     speak: (message)->
