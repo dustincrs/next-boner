@@ -5,7 +5,6 @@
 			  <%=@project.latitude%>,<%=@project.longitude%>,<%=@project.title%>,<%=@project.location%>,<%=@project.max_people%>,<%=@project.category%>,<%=@project.detail%>,<%=@project.user.first_name%>,<%=@project.id%>;
 			</div>
 		<hr/>
-
 	<% end %>
 <% end %>
 
@@ -34,8 +33,28 @@ text.forEach(function(element)  {
   container: 'map',
   style: 'mapbox://styles/mapbox/streets-v9',
   center: collection[0].geometry.coordinates,
-  zoom: 17
+  zoom: 18
   });
 
+var geojson = {
+        "type": "FeatureCollection",
+        "features": collection
+      };
+
+
+map.on("load", function(e) {
+  map.addLayer({
+    id: 'locations',
+    type: 'symbol',
+    source: {
+      type: 'geojson',
+      data: geojson
+    },
+    layout: {
+      'icon-image': 'volcano-15',
+      'icon-allow-overlap': true, 
+    }
+  });
+});
   
 </script> 
