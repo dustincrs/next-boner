@@ -20,6 +20,7 @@ $(document).ready ->
       console.log(data)
       y = document.createElement("div");
       y.innerHTML = "<p>#{data.user_fname} says: </p> <p>#{data.message}</p>"
+      # img src =\"data.user_avatar\"/>
       x.append(y);
 
 
