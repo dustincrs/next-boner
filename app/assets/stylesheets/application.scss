@@ -274,7 +274,7 @@ body {
 }
 
 h1 {
-  font-size: 22px;
+  font-size: 17px;
   margin: 0;
   font-weight: 400;
   line-height: 20px;
@@ -389,7 +389,7 @@ a:hover {
 }
 
 .mapboxgl-popup-content {
-  font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+  font: 400 10px/17px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
   padding: 0;
   width: 180px;
 }
@@ -398,7 +398,7 @@ a:hover {
   padding: 1%;
 }
 
-.mapboxgl-popup-content h3 {
+.mapboxgl-popup-content h5 {
   background: #91c949;
   color: #fff;
   margin: 0;
