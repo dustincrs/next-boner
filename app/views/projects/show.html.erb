@@ -4,8 +4,9 @@
 <%=render partial: "projects/show_partials/project_map_partial" %>
 <%=render partial: "projects/show_partials/project_volunteers" %>
 
+
 <% if signed_in? %>
-  <%if current_user.id != @project.user.id && @responses.find_by(user_id: current_user.id).nil? && @project.is_complete == false%>
+  <%if current_user.id != @project.user.id && @responses.find_by(user_id: current_user.id).nil? && @project.is_complete == false && @project.category != "Scraped"%>
     <%=link_to "Volunteer!", "#", "data-target": "#confirm-volunteering-modal", "data-toggle": "modal", class: 'btn btn-primary w-100' %>
   <% end %>
 <% end %>
@@ -33,10 +34,6 @@
 </div>
 <% end %>
 
-<%= link_to 'Chat', chatroom_path(@project.id) %>
-
-
-=======
 <!-- Modal for volunteer confirmation -->
 <div class="modal fade" tabindex="-1" role="dialog" id="confirm-volunteering-modal">
 <div class="modal-dialog" role="document">

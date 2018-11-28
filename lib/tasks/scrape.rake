@@ -43,7 +43,8 @@ namespace :scrape do
 		new_project.latitude = event_page.css("meta[property='event:location:latitude']").first[:content]
 		new_project.longitude = event_page.css("meta[property='event:location:longitude']").first[:content]
 
-		new_project.detail = event_page.css("div[data-automation='listing-event-description'] p").map { |e| e.text }.join("\n")
+		new_project.detail = "#{url}\n" 
+		new_project.detail += event_page.css("div[data-automation='listing-event-description'] p").map { |e| e.text }.join("\n")
 
 		if(Project.exists?(user_id: User.find_by(role: "bot").id, title: new_project.title))
 			puts "Not making project, it already has been scraped!"
