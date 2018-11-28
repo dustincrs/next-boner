@@ -25,6 +25,7 @@ class ProjectsController < ApplicationController
     @pending = @responses.where(is_approved: false, is_hidden: false)
     @approved = @responses.where(is_approved: true, is_hidden: false)
 
+    @capacity_tooltip_label = (@project.max_people==0)? "No capacity limit!" : "For #{@project.max_people} people"
   end
 
   # GET /projects/new

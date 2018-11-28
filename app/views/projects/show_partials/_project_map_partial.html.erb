@@ -1,8 +1,41 @@
-map should go here. the if conditions are already writen. Check projects/show_partials/_project_map_partial
-
 <% if signed_in? %>
-	<% if current_user.can_view_project_detail?(@project) %>
-			<!--MAPBOX GOES HERE!!!-->
-		<hr />
+	<% if current_user.can_view_project_detail?(@project) || @project.category=="Scraped"%>
+			<div id="map" class="map-partial"></div>
+  			<div id="hiddenListings" class="hidden" style="display: none">
+			  <%=@project.latitude%>,<%=@project.longitude%>,<%=@project.title%>,<%=@project.location%>,<%=@project.max_people%>,<%=@project.category%>,<%=@project.detail%>,<%=@project.user.first_name%>,<%=@project.id%>;
+			</div>
+		<hr/>
+
 	<% end %>
 <% end %>
+
+<script>
+var text = document.getElementById("hiddenListings").innerHTML.split(";");
+
+var collection = []
+text.forEach(function(element)  {
+  let y = element.split(",")
+  
+  let geometry_hash = {}
+  geometry_hash.type = "Point"
+  geometry_hash.coordinates = [y[1],y[0]]
+
+  let new_hash = {}
+  new_hash.type = "Feature"
+  new_hash.geometry = geometry_hash
+
+  collection.push(new_hash)
+});
+
+
+  mapboxgl.accessToken = 'pk.eyJ1IjoianVzdGluaGlld2NqIiwiYSI6ImNqb255bm5naTFiOGYzcG5vOXN3eWE5am4ifQ.DCwE-GkXgAVdexBZ0q_4mQ';
+  console.log(collection);
+  var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v9',
+  center: collection[0].geometry.coordinates,
+  zoom: 17
+  });
+
+  
+</script> 

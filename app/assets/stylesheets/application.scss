@@ -208,6 +208,10 @@ body {
 
 	font-family:Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
 	color:#484848;
+<<<<<<< HEAD
+=======
+  background-image: url("/bg.jpg");
+>>>>>>> eea3009a8c5d87b640af43752fee8cef6b83dc49
   background-size: cover;
 }
 
@@ -223,8 +227,9 @@ body {
   background-color: green;
 }
 
+
 /*////////////////////////*/
-.box1 img,.box1:after,.box1:before{width:100%;transition:all .3s ease 0s}
+.box1 img,.bjox1:after,.box1:before{width:100%;transition:all .3s ease 0s}
 .box1 .icon,.box2,.box3,.box4,.box5 .icon li a{text-align:center}
 .box10:after,.box10:before,.box1:after,.box1:before,.box2 .inner-content:after,.box3:after,.box3:before,.box4:before,.box5:after,.box5:before,.box6:after,.box7:after,.box7:before{content:""}
 .box1,.box11,.box12,.box13,.box14,.box16,.box17,.box18,.box2,.box20,.box21,.box3,.box4,.box5,.box5 .icon li a,.box6,.box7,.box8{overflow:hidden}
@@ -250,4 +255,183 @@ body{background-color:#f1f1f2}
 .box2 .icon li a,.box3 .icon a:hover,.box4 .icon li a:hover,.box5 .icon li a,.box6 .icon li a{border-radius:50%}
 .box1 .icon li a:hover{color:#fff;box-shadow:0 0 10px #000 inset,0 0 0 3px #fff}
 @media only screen and (max-width:990px){.box1{margin-bottom:30px}
+.marker {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+body {
+  color: #404040;
+  font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 22px;
+  margin: 0;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 20px 2px;
+}
+
+a {
+  color: #404040;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #101010;
+}
+
+.sidebar {
+  position: absolute;
+  width: 33.3333%;
+  height: 100%;
+  top: 60px;
+  left: 0;
+  overflow: hidden;
+  border-right: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.pad2 {
+  padding: 20px;
+}
+
+.map {
+  position: absolute;
+  left: 33.3333%;
+  width: 66.6666%;
+  height: fill;
+  top: 0;
+  bottom: 0;
+}
+
+.map-partial {
+  width: 100%;
+  height: fill;
+  
+}
+
+.heading {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 10px;
+}
+
+.listings {
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 60px;
+}
+
+.listings .item {
+  display: block;
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.listings .item:last-child { border-bottom: none; }
+
+.listings .item .title {
+  display: block;
+  color: #00853e;
+  font-weight: 700;
+}
+
+.listings .item .title small { font-weight: 400; }
+
+.listings .item.active .title,
+.listings .item .title:hover { color: #8cc63f; }
+
+.listings .item.active {
+  background-color: #f8f8f8;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  border-left: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00853e;
+  border-radius: 0;
+}
+
+.clearfix { display: block; }
+
+.clearfix::after {
+  content: '.';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+/* Marker tweaks */
+.mapboxgl-popup-close-button {
+  display: none;
+}
+
+.mapboxgl-popup-content {
+  font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+  padding: 0;
+  width: 180px;
+}
+
+.mapboxgl-popup-content-wrapper {
+  padding: 1%;
+}
+
+.mapboxgl-popup-content h3 {
+  background: #91c949;
+  color: #fff;
+  margin: 0;
+  display: block;
+  padding: 10px;
+  border-radius: 3px 3px 0 0;
+  font-weight: 700;
+  margin-top: 0;
+}
+
+.mapboxgl-popup-content h4 {
+  margin: 0;
+  display: block;
+  padding: 10px;
+  font-weight: 400;
+}
+
+.mapboxgl-popup-content div {
+  padding: 10px;
+}
+
+.mapboxgl-container .leaflet-marker-icon {
+  cursor: pointer;
+}
+
+.mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
+  margin-top: 15px;
+}
+
+.mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
+  border-bottom-color: #91c949;
+
 }

@@ -1,5 +1,164 @@
-<h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
-<% if signed_in? %>
-  <%= link_to 'Profile' , user_path(current_user.id) %>
-<% end %>
+<div class="row px-3" style="height: 58vh;">
+  <div class="col-4">
+    
+    <div class="heading">
+        <h1>Our location</h1>
+      </div>
+      <div id='listings' class='listings'></div>
+      <div id="hiddenListings" class="hidden" style="display: none">
+        <% @projects.each do |p| %><%=p.latitude%>,<%=p.longitude%>,<%=p.title%>,<%=p.location%>,<%=p.max_people%>,<%=p.category%>,<%=p.detail%>,<%=p.user.first_name%>,<%=p.id%>;<% end %>
+      </div>
+
+    </div>
+  
+  <div class="col">
+  <div id='map' class="map" style="position: absolute;left: 0;width: 100%;height: 100%;"></div>
+  </div>
+</div>
+
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoianVzdGluaGlld2NqIiwiYSI6ImNqb255bm5naTFiOGYzcG5vOXN3eWE5am4ifQ.DCwE-GkXgAVdexBZ0q_4mQ';
+  var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v9',
+  center: [101.538116, 3.519863],
+  zoom: 6
+  });
+  
+var text = document.getElementById("hiddenListings").innerHTML.split(";");
+
+var collection = []
+text.forEach(function(element)  {
+  let y = element.split(",")
+  
+  let geometry_hash = {}
+  geometry_hash.type = "Point"
+  geometry_hash.coordinates = [y[1],y[0]]
+
+  let properties_hash = {}
+  properties_hash.title = y[2]
+  properties_hash.location = y[3]
+  properties_hash.max_people = y[4]
+  properties_hash.category = y[5]
+  properties_hash.detail = y[6]
+  properties_hash.poster = y[7]
+  properties_hash.id = y[8]
+
+  let new_hash = {}
+  new_hash.type = "Feature"
+  new_hash.geometry = geometry_hash
+  new_hash.properties = properties_hash
+
+  collection.push(new_hash)
+});
+
+
+var geojson = {
+        "type": "FeatureCollection",
+        "features": collection
+      };
+
+
+map.on("load", function(e) {
+  map.addLayer({
+    id: 'locations',
+    type: 'symbol',
+    source: {
+      type: 'geojson',
+      data: geojson
+    },
+    layout: {
+      'icon-image': 'restaurant-15',
+      'icon-allow-overlap': true, 
+    }
+  });
+  buildLocationList(geojson);
+});
+
+function buildLocationList(data) {
+  // Iterate through the list of stores
+  for (i = 0; i < data.features.length-1; i++) {
+    var currentFeature = data.features[i];
+    // Shorten data.feature.properties to just `prop` so we're not
+    // writing this long form over and over again.
+    var prop = currentFeature.properties;
+    // Select the listing container in the HTML and append a div
+    // with the class 'item' for each store
+    var listings = document.getElementById('listings');
+    var listing = listings.appendChild(document.createElement('div'));
+    listing.className = 'item';
+    listing.id = 'listing-' + i;
+
+    // Create a new link with the class 'title' for each store
+    // and fill it with the store address
+    var link = listing.appendChild(document.createElement('a'));
+    link.href = '#';
+    link.className = 'title';
+    link.dataPosition = i;
+    link.innerHTML = prop.title;
+
+    // Create a new div with the class 'details' for each store
+    // and fill it with the city and phone number
+    var details = listing.appendChild(document.createElement('div'));
+    details.innerHTML = prop.poster;
+
+    
+    // Add an event listener for the links in the sidebar listing
+    link.addEventListener('click', function(e) {
+      // Update the currentFeature to the store associated with the     clicked link
+      var clickedListing = data.features[this.dataPosition];
+      // 1. Fly to the point associated with the clicked link
+      flyToStore(clickedListing);
+      // 2. Close all other popups and display popup for clicked store
+      createPopUp(clickedListing);
+      // 3. Highlight listing in sidebar (and remove highlight for    all other listings)
+
+      event.preventDefault();
+    });
+  }
+};
+
+function flyToStore(currentFeature) {
+  map.flyTo({
+    center: currentFeature.geometry.coordinates,
+    zoom: 15
+  });
+};
+
+function createPopUp(currentFeature) {
+  var popUps = document.getElementsByClassName('mapboxgl-popup');
+  // Check if there is already a popup on the map and if so, remove it
+  if (popUps[0]) popUps[0].remove();
+
+  var popup = new mapboxgl.Popup({ closeOnClick: false })
+    .setLngLat(currentFeature.geometry.coordinates)
+    .setHTML('<h3>' + '<a href="/projects/' + currentFeature.properties.id+ '">'+ currentFeature.properties.title + '</a>' +'</h3>' +
+      '<h6>' + 'Category: '+ currentFeature.properties.category + '</h6>' + 
+      '<h6>' + 'Max people: '+ currentFeature.properties.max_people + '<h6>')
+    .addTo(map);
+    console.log(currentFeature)
+};
+
+
+    //Add Search function by location
+    var geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      zoom: 17,
+      placeholder: "Enter search e.g. Glo",
+    });
+    
+     //attempt at making marker follow the geocoder,
+    map.addControl(geocoder);
+    
+    // Add zoom and rotation controls to the map.
+    map.addControl(new mapboxgl.NavigationControl());
+  
+    // Add geolocate control to the map.
+    geolocate = new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    trackUserLocation: true
+    });
+    map.addControl(geolocate);
+</script>
