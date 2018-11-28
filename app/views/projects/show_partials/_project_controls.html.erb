@@ -1,6 +1,6 @@
 <!--Partial for rendering settings -->
 <% if signed_in? %>
-  <% if current_user.can_view_project_detail?(@project) %>
+  <% if current_user.can_view_project_controls?(@project) %>
     <% if @project.is_complete == false %>
       <div class="row mb-2">
         <div class="col">

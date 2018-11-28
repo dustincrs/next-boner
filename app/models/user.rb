@@ -71,6 +71,10 @@ class User < ApplicationRecord
     (id == project_object.user.id || moderator? || superadmin? || project_object.responses.where(user_id: id).size > 0)? true : false
   end
 
+  def can_view_project_controls?(project_object)
+    (id == project_object.user.id || moderator? || superadmin?)? true : false
+  end
+
   # Google OmniAuth
   def self.create_with_auth_and_hash(authentication, auth_hash)
     first_name = auth_hash["info"]["name"].split(" ").first
