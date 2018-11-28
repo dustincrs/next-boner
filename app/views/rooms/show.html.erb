@@ -1,10 +1,10 @@
-<h1>Chat room</h1>
+<h1>Group Chat for <%=@chatroom.project.title %></h1>
 
-<div id = "msg" style = "display:none">
+<div id = "msg">
   <%=current_user.id%>
 </div>
 
-<div id="messages">
+<div id="messages" style = "overflow-y: scroll; height:20em;">
   <%= render @messages %>
 </div>
 
