@@ -32,9 +32,20 @@ def generate_test_user
 	return u
 end
 
+def make_title
+	part1 = ["Please assist", "Please help"]
+	part2 = ["me", "my mom", "my dad", "my pets"]
+	part3 = ["to move", "to clean", "to deliver", "to distribute"]
+	part4 = ["furniture", "food", "sundries", "paperwork"]
+	part5 = ["in"]
+	part6 = ["a school", "a food court", "a plantation", "an office"]
+
+	return "#{part1.sample} #{part2.sample} #{part3.sample} #{part4.sample} #{part5.sample} #{part6.sample}"
+end
+
 def generate_project(owner_id)
 	n_p = Project.new()
-	n_p.title = Faker::Hipster.sentence
+	n_p.title = make_title
 	n_p.category = Project::CATEGORIES[1..-1].sample
 	n_p.estimated_time = rand(361)
 	n_p.max_people = rand(11)
@@ -43,7 +54,7 @@ def generate_project(owner_id)
 	n_p.longitude = Faker::Address.longitude
 	n_p.user_id = owner_id
 	n_p.is_complete = Faker::Boolean.boolean(0.5)
-	n_p.detail = Faker::Hipster.paragraphs(1 + rand(6)).join(" ")
+	n_p.detail = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel tellus sodales, ultrices turpis ut, vestibulum massa. Aliquam erat volutpat. Nam venenatis mauris ac nisi blandit ultrices. Aliquam quis nulla tincidunt, vulputate enim egestas, sollicitudin metus. Donec cursus mauris leo, lacinia interdum turpis tempor vitae. Nulla auctor vestibulum lorem ac tincidunt. Integer ultricies rutrum dolor. Aliquam enim est, aliquam eu elementum eu, viverra sodales ante. Donec rutrum aliquam arcu, et convallis mauris tincidunt vel. Morbi vitae purus a est ullamcorper venenatis non ut diam. Quisque consequat pretium eros eu vestibulum. Quisque id tellus ut est tempus semper in id sem. Nunc nec rhoncus metus. Integer ultricies in nulla quis lacinia. Aliquam ac imperdiet metus."
 	return n_p
 end
 
