@@ -1,10 +1,12 @@
 $(document).ready ->
-  # x = document.querySelector(".messages");
   x = document.getElementById("messages");
   console.log(x);
 
-  bootleg_id = document.getElementById("msg").innerHTML;
-  chatroom_id = document.querySelector("#chatroom_id").innerHTML;
+  if (document.getElementById("msg") && document.querySelector("#chatroom_id"))
+    bootleg_id = document.getElementById("msg").innerHTML;
+    chatroom_id = document.querySelector("#chatroom_id").innerHTML;
+  
+
   # console.log(chatroom_id)
 
   # scroll_bottom = () ->
