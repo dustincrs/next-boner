@@ -108,8 +108,10 @@ class User < ApplicationRecord
   # Private
   private
   def age_over_18
-    if (Date.today.year - date_of_birth.year < 18)
-      errors.add(:date_of_birth, 'You should be 18 years or older.')
+    if date_of_birth != nil
+      if (Date.today.year - date_of_birth.year < 18)
+        errors.add(:date_of_birth, 'You should be 18 years or older.')
+      end
     end
   end
 end
