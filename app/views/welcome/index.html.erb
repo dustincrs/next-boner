@@ -6,7 +6,7 @@
       </div>
       <div id='listings' class='listings'></div>
       <div id="hiddenListings" class="hidden" style="display: none">
-        <% @projects.each do |p| %><%=p.latitude%>,<%=p.longitude%>,<%=p.title%>,<%=p.location%>,<%=p.max_people%>,<%=p.category%>,<%=p.detail%>,<%=p.user.first_name%>,<%=p.id%>;<% end %>
+        <% @projects.each do |p| %><%=p.latitude%>^<%=p.longitude%>^<%=p.title%>^<%=p.location%>^<%=p.max_people%>^<%=p.category%>^<%=p.detail%>^<%=p.user.first_name%>^<%=p.id%>;<% end %>
       </div>
 
     </div>
@@ -29,7 +29,7 @@ var text = document.getElementById("hiddenListings").innerHTML.split(";");
 
 var collection = []
 text.forEach(function(element)  {
-  let y = element.split(",")
+  let y = element.split("^")
   
   let geometry_hash = {}
   geometry_hash.type = "Point"
