@@ -1,41 +1,4 @@
 <h1>Editing Project</h1>
-<%# <%= render 'form', project: @project %>
-<%= link_to 'Show', @project %>
-<%= link_to 'Back', projects_path %>
-<%= bootstrap_form_with(model: @project, local: true) do |form| %>
-  <% if @project.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@project.errors.count, "error") %> prohibited
-        this listing from being saved:
-      </h2>
-      <ul>
-        <% @project.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class = "col-6">
-    <%= form.text_field :title, label_class: "listingtext" %>
-  </div>
-  <div class = "col-6">
-    <%= form.text_area :category, label_class: "listingtext" %>
-  </div>
-  <div class = "col-6">
-    <%= form.text_area :estimated_time, label_class: "listingtext" %>
-  </div>
-  <div class = "col-6">
-    <%= form.text_area :max_people, label_class: "listingtext" %>
-  </div>
-  <div class = "col-6">
-    <%= form.text_area :location, label_class: "listingtext" %>
-  </div>
-  <div class = "col-6">
-    <%= form.file_field :images, multiple: true, class:"listingtext" %><br>
-  </div>
-  <p>
-    <%= form.submit "Update Project" %>
-  </p>
+<%= bootstrap_form_with model: @project, url: project_path(@project.id), local: true, method: :patch do |form| %>
+	<%=render partial: 'projects/project_form', locals: {form: form} %>
 <% end %>
-<%= link_to 'Back', projects_path %>

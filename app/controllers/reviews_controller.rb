@@ -2,7 +2,6 @@ class ReviewsController < ApplicationController
   def new
     @project = Project.find_by_id(params[:project_id])
     @user = User.find_by_id(params[:user_id])
-    # @review = Review.new(review_params)
   end
 
   def create
@@ -14,14 +13,6 @@ class ReviewsController < ApplicationController
     respond_to do |format|
       format.js {render 'reviews/on_form_submit'}
     end
-
-    # if(new_review.save)
-    #   flash[:success] = "Successfully reviewed #{new_review.user.full_name}!"
-    # else
-    #   flash[:error] = "Failed to submit review! #{new_review.errors.full_messages.join(", ")}"
-    # end
-
-    # redirect_to project_path(new_review.project.id)
   end
 
   def show

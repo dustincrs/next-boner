@@ -1,0 +1,14 @@
+function return_count(id)	{
+	return parseInt($("#" + id).html())
+}
+
+var volunteer = $("#response_<%=@response.id%>").clone()
+$("#response_<%=@response.id%>").hide()
+$("#approved-volunteers").append(volunteer)
+$("#response_<%=@response.id%> #approve-volunteer-div").hide()
+
+x = return_count("approved-volunteers-count")
+$("#approved-volunteers-count").html(x + 1)
+
+y = return_count("pending-volunteers-count")
+$("#pending-volunteers-count").html(y - 1)
