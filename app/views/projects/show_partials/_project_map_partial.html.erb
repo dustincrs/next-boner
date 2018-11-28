@@ -1,7 +1,7 @@
 <% if signed_in? %>
-	<% if current_user.can_view_project_detail?(@project) %>
+	<% if current_user.can_view_project_detail?(@project) || @project.category=="Scraped"%>
 			<div id="map" class="map-partial"></div>
-  			<div id="hiddenListings" class="hidden">
+  			<div id="hiddenListings" class="hidden" style="display: none">
 			  <%=@project.latitude%>,<%=@project.longitude%>,<%=@project.title%>,<%=@project.location%>,<%=@project.max_people%>,<%=@project.category%>,<%=@project.detail%>,<%=@project.user.first_name%>,<%=@project.id%>;
 			</div>
 		<hr/>
