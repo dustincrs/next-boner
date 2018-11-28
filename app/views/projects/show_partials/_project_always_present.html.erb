@@ -60,7 +60,7 @@
   <div class="col" data-toggle="tooltip" title="Requires approx. <%=@project.estimated_time%> minutes">
     <%=@project.display_estimated_time%>
   </div>
-  <div class="col" data-toggle="tooltip" title="For <%=@project.max_people%>">
+  <div class="col" data-toggle="tooltip" title="<%=@capacity_tooltip_label%>">
     <%=@project.display_capacity%>
   </div>
 </div>
@@ -70,7 +70,22 @@
 <div class = "row">
   <div class = "col">
     <h3 class="text-center">About</h3>
+
+    <%if @project.category == "Scraped" %>
+
+      <%url = @project.detail.scan(URI.regexp)[0][1..-1].join("")%>
+      <div class="text-center mb-5">
+        <b>This is a scraped event. For more information, visit:</b> <br/>
+        <%= link_to url, "http://#{url}"%>
+
+      </div>
+
+      <%= @project.detail.split(" ")[1..-1].join(" ") %>
+    <%else%>
+
     <%=@project.detail%>
+
+    <%end%>
   </div>
 </div>
 

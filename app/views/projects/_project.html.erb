@@ -5,7 +5,7 @@
 				<div class="col text-left">
 					<b><%=link_to project.title, project_path(project.id), style: "color:black"%></b>
 				</div>
-				<div class="col text-right">
+				<div class="col-2 text-right">
 					<%=(project.is_complete==true)? '<span style="color:green">COMPLETE</span>'.html_safe : ""%>
 				</div>
 			</div>
@@ -14,7 +14,7 @@
 
 		<div class="card-body">
 			<div class="card-text">
-				<%=project.detail.truncate(50)%>
+				<%=project.detail.truncate(100)%>
 			</div>
 		</div>
 

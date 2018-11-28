@@ -21,6 +21,17 @@ def generate_user(role)
 	return u
 end
 
+def generate_test_user
+	u = User.new()
+	u.first_name = Faker::Name.first_name
+	u.last_name = Faker::Name.last_name
+	u.date_of_birth = Faker::Date.birthday(18, 75)
+	u.phone_number = "1234567890"
+	u.email = "test@email.com"
+	u.password = "1234567890"
+	return u
+end
+
 def generate_project(owner_id)
 	n_p = Project.new()
 	n_p.title = Faker::Hipster.sentence
@@ -32,7 +43,7 @@ def generate_project(owner_id)
 	n_p.longitude = Faker::Address.longitude
 	n_p.user_id = owner_id
 	n_p.is_complete = Faker::Boolean.boolean(0.5)
-	n_p.detail = Faker::Hipster.paragraphs(1 + rand(6))
+	n_p.detail = Faker::Hipster.paragraphs(1 + rand(6)).join(" ")
 	return n_p
 end
 
@@ -67,6 +78,14 @@ end
 
 report_seeding(seeded_users, users_to_seed, "users")
 
+# Seed a test account
+if generate_test_user.save
+	puts "Seeded test@email.com, password: 1234567890"
+else
+	puts "Failed to seed test user!"
+end
+
+
 # Seed projects
 total_projects = 0
 saved_projects = 0
@@ -76,6 +95,7 @@ User.all.each do |user|
 		new_project = generate_project(user.id)
 		if(new_project.save)
 			saved_projects += 1
+			new_chatroom = Chatroom.create(project_id: new_project.id)
 		end
 	end
 end
@@ -97,6 +117,13 @@ Project.all.each do |project|
 end
 
 report_seeding(saved_responses, total_responses, "responses")
+
+# Take out responses where max_people are exceeded
+Project.all.each do |project|
+	while(project.responses.where(is_approved: true).size > project.max_people)
+		project.responses.last.destroy
+	end
+end
 
 # Seed reviews
 total_reviews = 0

@@ -17,6 +17,7 @@ class ProjectsController < ApplicationController
     @pending = @responses.where(is_approved: false, is_hidden: false)
     @approved = @responses.where(is_approved: true, is_hidden: false)
 
+    @capacity_tooltip_label = (@project.max_people==0)? "No capacity limit!" : "For #{@project.max_people} people"
   end
 
   # GET /projects/new
@@ -33,10 +34,13 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
 
-
     respond_to do |format|
       @project.user_id = current_user.id
+      # @project.chatroom_id = @project.id
       if @project.save
+        x = Chatroom.new
+        x.project_id = @project.id
+        x.save  
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
@@ -86,4 +90,8 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:title, :category, :estimated_time, :max_people, :location, :longitude, :latitude, {images:[]}, :detail, :user_id)
   end
+
+  # def chatroom_params
+  #   params.require(:chatroom).permit(:topic, :slug)
+  # end
 end

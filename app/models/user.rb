@@ -16,6 +16,9 @@ class User < ApplicationRecord
   has_many :awards
   has_many :badges, through: :awards
   has_many :messages
+  has_many :subscriptions
+  has_many :chatrooms, through: :subscriptions
+  has_many :messages
 
   # Validations
   ATTRIBUTES = User.attribute_names
