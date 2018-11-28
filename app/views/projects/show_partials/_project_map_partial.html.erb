@@ -1,11 +1,8 @@
 <% if signed_in? %>
 	<% if current_user.can_view_project_detail?(@project) %>
 			<div id="map" class="map-partial"></div>
-  			<div id="hiddenListings" class="hidden">
-			  <%=@project.latitude%>,<%=@project.longitude%>,<%=@project.title%>,<%=@project.location%>,<%=@project.max_people%>,<%=@project.category%>,<%=@project.detail%>,<%=@project.user.first_name%>,<%=@project.id%>;
-			</div>
+  			<div id="hiddenListings" class="hidden"><%=@project.latitude%>,<%=@project.longitude%>,<%=@project.title%>,<%=@project.location%>,<%=@project.max_people%>,<%=@project.category%>,<%=@project.detail%>,<%=@project.user.first_name%>,<%=@project.id%>;</div>
 		<hr/>
-
 	<% end %>
 <% end %>
 
@@ -36,6 +33,27 @@ text.forEach(function(element)  {
   center: collection[0].geometry.coordinates,
   zoom: 17
   });
+
+var geojson = {
+        "type": "FeatureCollection",
+        "features": collection
+      };
+
+
+map.on("load", function(e) {
+  map.addLayer({
+    id: 'locations',
+    type: 'symbol',
+    source: {
+      type: 'geojson',
+      data: geojson
+    },
+    layout: {
+      'icon-image': 'restaurant-15',
+      'icon-allow-overlap': true, 
+    }
+  });
+});
 
   
 </script> 
