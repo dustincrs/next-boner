@@ -39,7 +39,6 @@ Rails.application.routes.draw do
 
   # Facebook OAuth
   Rails.application.routes.draw do
-    get 'rooms/show'
     get 'auth/facebook/callback', to: "sessions#create"
     get 'auth/failure', to: redirect('/')
   end

@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'figaro'
 gem 'clearance'
+gem 'redis'
 
 gem 'omniauth'
 gem 'omniauth-google-oauth2'

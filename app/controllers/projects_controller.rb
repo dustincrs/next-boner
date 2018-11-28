@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-
+    @chatroom = @project.chatroom
     @responses = @project.responses
     @pending = @responses.where(is_approved: false, is_hidden: false)
     @approved = @responses.where(is_approved: true, is_hidden: false)
