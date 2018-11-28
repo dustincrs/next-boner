@@ -72,6 +72,13 @@ namespace :badges do
 							"User has been part of #{threshold} completed projects.")
 		end
 
+
+		# Make badge for posting first project
+		create_badge(		"user.projects.size >= 1",
+							"fas fa-certificate",
+							BADGE_TIERS[0],
+							"First Timer",
+							"User has submitted their first project!")
 		# And many more..
 	end
 end
