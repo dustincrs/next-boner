@@ -68,7 +68,7 @@ class User < ApplicationRecord
 
   # Returns true if the user is the owner of the project, a moderator, or an admin
   def can_view_project_detail?(project_object)
-    (id == project_object.user.id || moderator? || superadmin?)? true : false
+    (id == project_object.user.id || moderator? || superadmin? || project_object.responses.where(user_id: id).size > 0)? true : false
   end
 
   # Google OmniAuth

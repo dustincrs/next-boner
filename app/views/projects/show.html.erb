@@ -6,7 +6,7 @@
 
 
 <% if signed_in? %>
-  <%if current_user.id != @project.user.id && @responses.find_by(user_id: current_user.id).nil? && @project.is_complete == false%>
+  <%if (current_user.id != @project.user.id && @responses.find_by(user_id: current_user.id).nil? && @project.is_complete == false) || project.category == "Scraped"%>
     <%=link_to "Volunteer!", "#", "data-target": "#confirm-volunteering-modal", "data-toggle": "modal", class: 'btn btn-primary w-100' %>
   <% end %>
 <% end %>
