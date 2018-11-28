@@ -33,8 +33,8 @@ class Project < ApplicationRecord
   #scopes
   scope :text_search, -> (text) {
 
-    text_with_wildcard = "%#{text}%"
-    where("title ILIKE ?", text_with_wildcard) if text_with_wildcard.present?
+    text = "%#{text}%"
+    where("title ILIKE ?", text) if text.present?
   }
   scope :number, -> (number) {
     where("max_people <= ?", number) if number.present?

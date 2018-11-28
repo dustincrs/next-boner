@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   get "/sign_up" => "clearance/users#new", as: "sign_up"
 
   # seach bar
-  post 'projects/search' => "projects#search", as: 'search'
+  get 'projects/search' => "projects#search", as: 'search'
 
   # Google OAuth
   get "/auth/:provider/callback" => "sessions#create_from_omniauth"
@@ -47,7 +47,8 @@ Rails.application.routes.draw do
     get 'auth/failure', to: redirect('/')
   end
 
+
   #chatrooms
-  get '/projects/:id/rooms', to: 'rooms#show', as: 'chatroom' 
+  get '/projects/:id/rooms', to: 'rooms#show', as: 'chatroom'
 
 end

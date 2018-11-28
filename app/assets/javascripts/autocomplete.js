@@ -17,6 +17,7 @@
                         var item = document.createElement("option")
                         item.value = project.title
                         box.append(item)
+                
                     })
 
                     // body...

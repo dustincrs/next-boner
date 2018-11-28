@@ -6,23 +6,23 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= action_cable_meta_tag %>
-
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
     <title>Pipilika</title>
   </head>
-
   <body>
-
     <nav class="navbar navbar-expand-lg navbar-light container-fluid" style="background-color: #bdecb6;">
-
+      <%= form_with url: projects_path , class:"form-inline" ,method: :get, local: true do |form| %>
+        <%= form.text_field :search , class:"form-control mr-sm-2", type:"search", placeholder: "Search by title", id:"keyup" , list:"titles" %>
+        <%= form.submit  "Search" , class:"btn btn-outline-info my-2 my-sm-0"  %>
+        <datalist id="titles">
+        </datalist>
+      <% end %>
       <!-- instead of home this is gonna be our logo -->
-       <a href="<%=root_url%>"><img src="/logo.png" alt="logo" class="navbar-brand" style="width: 25px"></a>
-
+      <a href="<%=root_url%>"><img src="/logo.png" alt="logo" class="navbar-brand" style="width: 25px"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -55,12 +55,10 @@
         </ul>
       </div>
     </nav>
-
     <div id="flash" class="text-center"> <% flash.each do |key, value| -%>
         <div id="flash_<%= key %>"><%=h value%></div>
       <% end %>
     </div>
-
     <!-- sign up modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -83,60 +81,50 @@
           <p><%=link_to 'Create A Boner Account' , sign_up_path, class: 'btn btn-primary w-100' %></p>
           <p class = "mr-auto"><%=link_to 'Login to Boner' , sign_in_path, class: 'btn btn-success w-100' %> </p>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- login modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Login to Boner</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+          <%= bootstrap_form_for :session, url:session_path , :html => {:class => 'form-signin' }  do |form| %>
+            <%= form.text_field :email, type: 'email' , hide_label: true, placeholder:"Email Address" %>
+            <%= form.password_field :password,  hide_label: true, id:"inputPassword" , type:"password" , placeholder: "Password"%>
+            <%= form.submit 'Login' , class: "btn btn-lg btn-primary btn-block text-uppercase mb-2"%>
+            <hr class="hr-text" data-content="OR">
+            <%= link_to ' Continue with Google' , '/auth/google_oauth2' ,class:"fab fa-google btn btn-lg btn-google btn-block text-uppercase mb-2" %>
+            <%= link_to ' Continue with Facebook' , '/auth/facebook' ,class:"fab fa-facebook-f mr-2 btn btn-lg btn-facebook btn-block text-uppercase", method: "get" %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= link_to "Dont have an account? Sign up!", sign_up_path, class: 'btn btn-success w-100' %>
         </div>
       </div>
     </div>
   </div>
-  <!-- login modal -->
-  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Login to Boner</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="card-body">
-            <%= bootstrap_form_for :session, url:session_path , :html => {:class => 'form-signin' }  do |form| %>
-
-                <%= form.text_field :email, type: 'email' , hide_label: true, placeholder:"Email Address" %>
-
-          
-                <%= form.password_field :password,  hide_label: true, id:"inputPassword" , type:"password" , placeholder: "Password"%>
-          
-          
-                <%= form.submit 'Login' , class: "btn btn-lg btn-primary btn-block text-uppercase mb-2"%>
-            
-              <hr class="hr-text" data-content="OR">
-              <%= link_to ' Continue with Google' , '/auth/google_oauth2' ,class:"fab fa-google btn btn-lg btn-google btn-block text-uppercase mb-2" %>
-              <%= link_to ' Continue with Facebook' , '/auth/facebook' ,class:"fab fa-facebook-f mr-2 btn btn-lg btn-facebook btn-block text-uppercase", method: "get" %>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <%= link_to "Dont have an account? Sign up!", sign_up_path, class: 'btn btn-success w-100' %>
-          </div>
-        </div>
-      </div>
-    </div>
-  <%end%>
-
-  <div class= "jumbotron container mt-5">
-    <div class="row">
-      <div class="col">
-        <%= yield %>
-      </div>
+<%end%>
+<div class= "jumbotron container mt-5">
+  <div class="row">
+    <div class="col">
+      <%= yield %>
     </div>
   </div>
-
-
-  <!-- For activating tooltips -->
-  <script>
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip();
-    })
-  </script>
-
-  </body>
+</div>
+<!-- For activating tooltips -->
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  })
+</script>
+</body>
 </html>
