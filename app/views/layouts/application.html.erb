@@ -37,9 +37,6 @@
                 <%= link_to 'Login', "#", data: {toggle: "modal", target: "#exampleModal1"} , class:"nav-link" %>
               <% end %>
               <% if signed_in? %>
-                <li class="nav-item mr-3">
-                  <%= link_to 'Profile Page', user_path(current_user), class:"nav-link" %>
-                </li>
                 <li class="nav-item dropdown mr-5">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Volunteering
@@ -48,10 +45,15 @@
                     <%= link_to 'Ask for Help' , new_project_path , class:"dropdown-item" %>
                   </div>
                 </li>
-                <li class="nav-item">
-                  <%=link_to image_tag(current_user.avatar_url.to_s, class:"navpicture") , user_path(current_user.id) %>
+                <li class="nav-item dropdown mr">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <%= image_tag(current_user.avatar_url.to_s, class:"navpicture") %>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <%= link_to 'Profile Page' , user_path(current_user) , class:"dropdown-item" %>
+                    <%= link_to 'Logout' , sign_out_path , class:'dropdown-item' , :method => :delete %>
+                  </div>
                 </li>
-                <%= link_to 'Logout' , sign_out_path , class:'nav-link' , :method => :delete %>
               <% end %>
             </li>
           </li>
