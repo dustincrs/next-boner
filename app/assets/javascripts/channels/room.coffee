@@ -1,9 +1,11 @@
 $(document).ready ->
-  x = document.querySelector(".inner");
-  bootleg_id = document.getElementById("msg").innerHTML;
+  # x = document.querySelector(".messages");
+  x = document.getElementById("messages");
+  console.log(x);
 
+  bootleg_id = document.getElementById("msg").innerHTML;
   chatroom_id = document.querySelector("#chatroom_id").innerHTML;
-  console.log(chatroom_id)
+  # console.log(chatroom_id)
 
   App.room = App.cable.subscriptions.create {channel: "RoomChannel", chatroom_id: chatroom_id},
 
@@ -15,8 +17,9 @@ $(document).ready ->
     received: (data) ->
       # alert(data['message'])
       # Called when there's incoming data on the websocket for this channel
+      console.log(data)
       y = document.createElement("div");
-      y.innerHTML = data.message;
+      y.innerHTML = "<p>#{data.user_fname} says: </p> <p>#{data.message}</p>"
       x.append(y);
 
 
