@@ -1,0 +1,6 @@
+<% if signed_in? %>
+	<% if current_user.can_view_project_detail?(@project) %>
+			<!--MAPBOX GOES HERE!!!-->
+	<hr />
+	<% end %>
+<% end %>

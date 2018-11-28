@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col">
+    <% if @project.images.size > 0 %>
+      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="width: 100%; height: 25em; margin: 0 auto; background-color: black">
+
+      <div class="carousel-inner">
+        <%if @project.images.size != 0 %>
+
+          <% @project.images.each_with_index do |img , index|  %>
+            <div class="carousel-item <%= index == 0 ? 'active' : nil %>">
+              <%=image_tag img.url.to_s, style: "height: 25em; width: 100%" %>
+            </div>
+          <% end %>
+
+        <%else%>
+          <div class="carousel-item active%>">
+              <%=image_tag "", style: "height: 25em; width: 100%" %>
+          </div>
+        <%end%>
+      </div>
+
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+
+      </div>    
+    <% end %>
+  </div>
+</div>
+
+
+<div class="row text-center">
+  <div class="col">
+    <h1 class="display-4"> <%= @project.title %></h1>
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col">
+    <h3><%= link_to @project.user.full_name, user_path(@project.user.id) %></h3>
+  </div>
+</div>  
+
+<div class="row text-center">
+  <div class="col">
+    <h4><%= @project.location %></h4>
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col" data-toggle="tooltip" title="<%=@project.category%>">
+    <%=@project.category_icon%>
+  </div>
+  <div class="col" data-toggle="tooltip" title="Requires approx. <%=@project.estimated_time%> minutes">
+    <%=@project.display_estimated_time%>
+  </div>
+  <div class="col" data-toggle="tooltip" title="<%=@capacity_tooltip_label%>">
+    <%=@project.display_capacity%>
+  </div>
+</div>
+
+<hr />
+
+<div class = "row">
+  <div class = "col">
+    <h3 class="text-center">About</h3>
+
+    <%if @project.category == "Scraped" %>
+
+      <%url = @project.detail.scan(URI.regexp)[0][1..-1].join("")%>
+      <div class="text-center mb-5">
+        <b>This is a scraped event. For more information, visit:</b> <br/>
+        <%= link_to url, "http://#{url}"%>
+
+      </div>
+
+      <%= @project.detail.split(" ")[1..-1].join(" ") %>
+    <%else%>
+
+    <%=@project.detail%>
+
+    <%end%>
+  </div>
+</div>
+
+<hr />

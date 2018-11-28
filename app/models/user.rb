@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
 
   # Enumerations
-  enum role: [:normal, :moderator, :superadmin]
+  enum role: [:normal, :moderator, :superadmin, :bot]
 
   # Associations
   has_many :authentications, dependent: :destroy
@@ -37,7 +37,7 @@ class User < ApplicationRecord
     return "#{first_name} #{last_name}"
   end
 
-  # Returns average review ratings. This function is bad when DB is huge. 
+  # Returns average review ratings. This function is bad when DB is huge.
   # Consider custom Rake task and adding a column for the avg in the user table.
   def average_rating
     if(reviews.size <= 0)
@@ -49,7 +49,26 @@ class User < ApplicationRecord
 
   # Returns all users responses that were approved, and that are marked as complete
   def successful_responses
-    return responses.select  {|r| r.is_approved == true }.select  {|r| r.project.is_complete == true}
+    return responses.select {|r| r.project.is_complete == true}
+  end
+
+  def blurb
+    tagger = EngTagger.new
+    all_reviews_tagged = tagger.add_tags(reviews.map { |r| r.text }.join(" ").gsub(/\n/, " "))
+    all_adjectives = tagger.get_adjectives(all_reviews_tagged)
+
+    unless(all_adjectives.nil?)
+      adjectives = all_adjectives.keys.sample(3).join(", ")
+      blurb = "Previously described as #{adjectives}."
+      return blurb
+    end
+
+    return ""
+  end
+
+  # Returns true if the user is the owner of the project, a moderator, or an admin
+  def can_view_project_detail?(project_object)
+    (id == project_object.user.id || moderator? || superadmin?)? true : false
   end
 
   # Google OmniAuth
@@ -65,8 +84,12 @@ class User < ApplicationRecord
       last_name: last_name,
       date_of_birth: dob,
       email: auth_hash["info"]["email"],
+      avatar: auth_hash["info"]["image"],
       phone_number: phone_no,
-      password: SecureRandom.hex(10)
+
+      password: SecureRandom.hex(10),
+
+
     )
     user.authentications << authentication
     return user

@@ -1,8 +1,9 @@
 class Project < ApplicationRecord
 	# CONSTANTS
-	CATEGORIES = [["Select a Category", ""], "Heavy Lifting", "Food", "Automotive", "Sharing", "Advice"]
+	CATEGORIES = [["", ""], "Heavy Lifting", "Food", "Automotive", "Sharing", "Advice", "Interpersonal Favours"]
 
 	SYMBOLS = { 
+				category: 		'<i class="fas fa-box-open"></i>',
 	 			clock: 			'<i class="far fa-clock"></i>',
 	 			person: 		'<i class="fas fa-people-carry"></i>',
 	 			map: 			'<i class="fas fa-map-marked-alt"></i>',
@@ -17,6 +18,8 @@ class Project < ApplicationRecord
 	 			automotive:		'<i class="fas fa-car"></i>',
 	 			sharing: 		'<i class="fas fa-praying-hands"></i>',
 	 			advice: 		'<i class="far fa-question-circle"></i>',
+	 			interpersonal_favours: '<i class="fas fa-heart"></i>',
+	 			scraped: 		'<i class="fas fa-robot"></i>',
 	 			}.map {|k, v| [k, v.html_safe]}.to_h
 
 	# Enumerations
@@ -29,7 +32,7 @@ class Project < ApplicationRecord
 	mount_uploaders :images, ImagesUploader
 
 	# Validations
-	validates :title, :estimated_time, :max_people, :location, :category, presence: true
+	validates :title, :estimated_time, :max_people, :detail, :location, :latitude, :longitude, :category, presence: true
 	validates :max_people, numericality: { greater_than: -1 }
 	validates :estimated_time, numericality: {greater_than: 0}
 	validate :limits_volunteers_to_max_people
@@ -50,7 +53,7 @@ class Project < ApplicationRecord
 
 	private
 	def limits_volunteers_to_max_people
-		if(max_people > 0 && responses.where(is_approved: true).size >= max_people)
+		if(max_people > 0 && responses.where(is_approved: true).size > max_people)
 			errors.add(:max_people, "cannot be exceeded.")
 		end
 	end

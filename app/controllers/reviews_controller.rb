@@ -1,19 +1,18 @@
 class ReviewsController < ApplicationController
   def new
-  	@project = Project.find_by_id(params[:project_id])
-  	@user = User.find_by_id(params[:user_id])
+    @project = Project.find_by_id(params[:project_id])
+    @user = User.find_by_id(params[:user_id])
   end
 
   def create
-  	new_review = Review.new(review_params)
+    @new_review = Review.new(review_params)
+    @new_review.rating = 0 if (@new_review.rating.nil? == true)
 
-  	if(new_review.save)
-  		flash[:success] = "Successfully reviewed #{new_review.user.full_name}!"
-  	else
-  		flash[:error] = "Failed to submit review! #{new_review.errors.full_messages.join(", ")}"
-  	end
-  	
-	redirect_to project_path(new_review.project.id)
+    @save_success = @new_review.save
+
+    respond_to do |format|
+      format.js {render 'reviews/on_form_submit'}
+    end
   end
 
   def show
@@ -29,6 +28,6 @@ class ReviewsController < ApplicationController
 
   private
   def review_params
-  	params.require(:review).permit(:project_id, :user_id, :rating, :text)
+    params.require(:review).permit(:project_id, :user_id, :rating, :text)
   end
 end
