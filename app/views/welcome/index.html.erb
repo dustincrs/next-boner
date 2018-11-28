@@ -132,7 +132,7 @@ function createPopUp(currentFeature) {
 
   var popup = new mapboxgl.Popup({ closeOnClick: false })
     .setLngLat(currentFeature.geometry.coordinates)
-    .setHTML('<h3>' + '<a href="/projects/' + currentFeature.properties.id+ '">'+ currentFeature.properties.title + '</a>' +'</h3>' +
+    .setHTML('<h5>' + '<a href="/projects/' + currentFeature.properties.id+ '">'+ currentFeature.properties.title + '</a>' +'</h5>' +
       '<h6>' + 'Category: '+ currentFeature.properties.category + '</h6>' + 
       '<h6>' + 'Max people: '+ currentFeature.properties.max_people + '<h6>')
     .addTo(map);
